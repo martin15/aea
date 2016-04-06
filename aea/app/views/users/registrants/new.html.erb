@@ -1,0 +1,25 @@
+<section class="registration">
+  <div class="user container">
+    <div class="row">
+      <%= render :partial => "/shared/user_side_menu" %>
+      <div class="col-sm-9 content">
+        <div class="box">
+          <h2>New Member</h2>
+          <div class="col-md-12">
+            <%= form_for([:users, @registrant], :url => users_registrants_path,
+                          :html => { :multipart => true, :class => "form-horizontal"}) do |f| %>
+              <%= render :partial => 'form', :locals => { :f => f} %>
+              <div class="form-group">
+                <div class="col-sm-2">&nbsp;</div>
+                <div class="col-sm-10">
+                  <%= f.submit :class => "btn btn-success" %>
+                  <%= link_to 'Back', users_registrants_path, :class => "btn btn-info" %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

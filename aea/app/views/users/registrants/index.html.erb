@@ -1,0 +1,96 @@
+<section class="registration">
+  <div class="user container">
+    <div class="row">
+      <%= render :partial => "/shared/user_side_menu" %>
+      <div class="col-sm-9 content">
+        <div class="box">
+          <h2>Member</h2>
+          <div class="col-md-12">
+            <p><%= link_to "Add new Member", new_users_registrant_path %></p>
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th><%= check_box_tag "check_all[]", "1", false, :id => "checkAll" %></th>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Country</th>
+                  <th>Fee</th>
+                  <th>Status</th>
+                  <th>&nbsp;</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @registrants.each_with_index do |registrant, x| %>
+                  <tr>
+                    <th id="checkboxes">
+                      <%= check_box_tag "id_registrants[]", registrant.id, false,
+                                         :id => "registrant_#{registrant.id}",
+                                         :class => "registrant_list" %>
+                    </th>
+                    <th scope="row"><%= @no+x+1 %></th>
+                    <td><%= registrant.full_name %></td>
+                    <td><%= registrant.email %></td>
+                    <td><%= registrant.try(:country).try(:name) %></td>
+                    <td><%= number_to_currency registrant.price %></td>
+                    <td><%= "-" %></td>
+                    <td>
+                      <%= link_to "Payment", "#", :class => "btn btn-info" %>
+                      <%= link_to "Edit", edit_users_registrant_path(registrant), :class => "btn btn-success" %>
+                      <%= link_to "Delete", users_registrant_path(registrant ), :method => :delete,
+                                            data: {:confirm => "Are you sure?"}, :class => "btn btn-warning" %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+          <div class="hidden_app" id="total_price">
+            <%= render :partial => "total_price", :locals => {:total_price => @total_price} %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#checkAll").change(function () {
+        $("input:checkbox").prop('checked', $(this).prop("checked"));
+        var selected = [];
+        $('#checkboxes input:checked').each(function() {
+            selected.push($(this).attr('value'));
+        });
+        if(selected.length > 0){
+          $.ajax({
+            type:'GET',
+            url:'/users/registrants/total_price',
+            data: { "registrant_ids": selected}
+          });
+        }else{
+          $("#total_price").hide();
+        }
+
+    });
+    
+    $(".registrant_list").change(function () {
+        var selected = [];
+        $('#checkboxes input:checked').each(function() {
+            selected.push($(this).attr('value'));
+        });
+        if(selected.length > 0){
+          $.ajax({
+            type:'GET',
+            url:'/users/registrants/total_price',
+            data: { "registrant_ids": selected}
+          });
+        }else{
+          $("#total_price").hide();
+        }
+
+    });
+
+
+  });
+</script>

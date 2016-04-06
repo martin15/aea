@@ -1,0 +1,125 @@
+<% content_for :javascript_stylesheet_includes do %>
+  <%= javascript_include_tag "bootstrap-datepicker", "bootstrap-timepicker" %>
+  <%= stylesheet_link_tag "bootstrap-datepicker" %>
+<% end %>
+
+<section class="registration">
+  <div class="user container">
+    <% flash.each do |key, value| %>
+      <div class="alert alert-<%= flash_type(key) %> alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <%= value %>
+      </div>
+    <% end %>
+    <div class="row">
+      <%= render :partial => "/shared/user_side_menu" %>
+      <div class="col-sm-9 content">
+        <div class="box">
+          <h2>Edit Pick Up Schedule</h2>
+          <%= form_for(@pick_up_schedule, :url => users_update_pick_up_schedule_path,
+                       html: {  class: "form-horizontal", :method => :put } ) do |f| %>
+            <div class="col-md-6 margin_b_30">
+              <div class="form-group">
+                <h4>Arriving Schedule</h4>
+              </div>
+              <div class="form-group">
+                <%= f.label :arriving_date, "Arriving Date *", :class => "col-sm-12 control-label" %>
+                <div class="col-sm-12">
+                  <%= f.text_field :arriving_date, :class => "form-control arriving-date" %>
+                </div>
+              </div>
+              <div class="form-group">
+                <%= f.label :arriving_time, "Arriving Time *", :class => "col-sm-12 control-label" %>
+                <div class="col-sm-12">
+                  <%= f.text_field :arriving_time, 
+                                    :value => @pick_up_schedule.try(:arriving_time).try(:strftime, "%H:%M"),
+                                    :class => "form-control arriving-time" %>
+                </div>
+              </div>
+              <div class="form-group">
+                <%= f.label :arriving_flight_number, "Flight No *", :class => "col-sm-12 control-label" %>
+                <div class="col-sm-12">
+                  <%= f.text_field :arriving_flight_number, :class => "form-control" %>
+                </div>
+              </div>
+              <div class="form-group">
+                <%= f.label :arriving_airport, "Arriving Airport *", :class => "col-sm-12 control-label" %>
+                <div class="col-sm-12">
+                  <%= f.text_field :arriving_airport, :class => "form-control" %>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 margin_b_30">
+              <div class="form-group">
+                <h4>Departing Schedule</h4>
+              </div>
+              <div class="form-group">
+                <%= f.label :departing_date, "Departing Date *", :class => "col-sm-12 control-label" %>
+                <div class="col-sm-12">
+                  <%= f.text_field :departing_date, :class => "form-control departing-date" %>
+                </div>
+              </div>
+              <div class="form-group">
+                <%= f.label :departing_time, "Departing Time *", :class => "col-sm-12 control-label" %>
+                <div class="col-sm-12">
+                  <%= f.text_field :departing_time,
+                                   :value => @pick_up_schedule.try(:departing_time).try(:strftime, "%H:%M"),
+                                   :class => "form-control departing-time" %>
+                </div>
+              </div>
+              <div class="form-group">
+                <%= f.label :departing_flight_number, "Flight No *", :class => "col-sm-12 control-label" %>
+                <div class="col-sm-12">
+                  <%= f.text_field :departing_flight_number, :class => "form-control" %>
+                </div>
+              </div>
+              <div class="form-group">
+                <%= f.label :departing_airport, "Departing Airport *", :class => "col-sm-12 control-label" %>
+                <div class="col-sm-12">
+                  <%= f.text_field :departing_airport, :class => "form-control" %>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-12">
+                <%= f.submit "Update", :class => "btn btn-success" %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.departing-date').datepicker({
+      format: 'yyyy-mm-dd',
+        autoclose: true
+    })
+
+    $('.arriving-date').datepicker({
+      format: 'yyyy-mm-dd',
+        autoclose: true
+    })
+    <%#*$('.departing-time').timepicker({%>
+      <%#*minuteStep: 1,%>
+      <%#*template: 'modal',%>
+      <%#*appendWidgetTo: 'body',%>
+      <%#*showSeconds: false,%>
+      <%#*showMeridian: false%>
+    <%#*});%>
+    <%#*$('.arriving-time').timepicker({%>
+      <%#*minuteStep: 1,%>
+      <%#*template: 'modal',%>
+      <%#*appendWidgetTo: 'body',%>
+      <%#*showSeconds: false,%>
+      <%#*showMeridian: false%>
+    <%#*});%>
+  });
+</script>
+
+

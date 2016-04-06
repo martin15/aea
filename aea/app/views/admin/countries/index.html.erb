@@ -1,0 +1,39 @@
+<div class="col-md-12 content">
+  <h2>Countries</h2>
+  <div class="col-md-12">
+    <p><%#= raw msg_flash(flash) %></p>
+    <p>
+      <%= link_to "Add new country", new_admin_country_path %>
+    </p>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Type</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @countries.each_with_index do |country, x| %>
+          <tr>
+            <th scope="row"><%= @no+x+1 %></th>
+            <td><%= country.name %></td>
+            <td><%= country.category_type %></td>
+            <td>
+              <%= link_to "Edit", edit_admin_country_path(country), :class => "btn btn-success" %>
+              <%= link_to "Delete", admin_country_path(country.id ), :method => :delete,
+                                    data: {:confirm => "Are you sure?"}, :class => "btn btn-warning" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <div class="admin-row">
+      <%= paginate @countries, :link_separator => " | ",
+                                 :previous_label => "&laquo; previous",
+                                 :next_label => "next &raquo;" %>
+
+    </div>
+  </div>
+</div>

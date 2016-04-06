@@ -1,0 +1,48 @@
+<%# content_for :javascript_includes do %>
+  <%#= javascript_include_tag "/assets/ckeditor/ckeditor" %>
+<%# end %>
+
+<% if @room_type.errors.any? %>
+  <div class="alert alert-danger alert-dismissable" group="alert">
+    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <h4><%= pluralize(@room_type.errors.count, "error") %> prohibited this group from being saved:</h4>
+    <ul>
+    <% @room_type.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+<div class="form-group">
+  <%= f.label :name, "Name *", :class => "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+    <%= f.text_field :name, :class => "form-control" %>
+  </div>
+</div>
+<div class="form-group margin_b_30">
+  <%= label_tag :price, "Price", :class => "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+    <div class="row col-sm-4">
+      Developed Country<br /><br />
+      <% @user_types.each do |user_type| %>
+        <%= user_type.name %>&nbsp;
+        <%= text_field_tag "developed_#{user_type.permalink}", @room_type.price_for(user_type, "Developed"),
+                           :class => "form-control" %>
+      <% end %>
+    </div>
+    <div class="col-sm-4">
+      Developing Country<br /><br />
+      <% @user_types.each do |user_type| %>
+        <%= user_type.name %>&nbsp;
+        <%= text_field_tag "developing_#{user_type.permalink}", @room_type.price_for(user_type, "Developing"),
+                           :class => "form-control" %>
+      <% end %>
+    </div>
+    <% unless @indonesia.nil? %>
+      <div class="col-sm-4">
+        Indonesia<br /><br /><br />
+        <%= text_field_tag "price_for_indonesia", @room_type.price_for_indonesia, :class => "form-control" %>
+      </div>
+    <% end %>
+  </div>
+</div>

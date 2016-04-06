@@ -1,0 +1,65 @@
+<%# content_for :javascript_includes do %>
+  <%#= javascript_include_tag "/assets/ckeditor/ckeditor" %>
+<%# end %>
+
+<% if @user.errors.any? %>
+  <div class="alert alert-danger alert-dismissable" group="alert">
+    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <h4><%= pluralize(@user.errors.count, "error") %> prohibited this group from being saved:</h4>
+    <ul>
+    <% @user.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+<div class="form-group">
+  <%= f.label :user_type_id, "User Type *", :class => "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+    <% UserType.all.each do |user_type| %>
+      <div class="radio">
+        <label>
+          <% checked = @user.user_type.nil? ? UserType.first : @user.user_type %>
+          <%= f.radio_button :user_type_id, user_type.id, :checked => user_type == checked %>
+          <%= user_type.name %>
+        </label>
+      </div>
+    <% end %>
+  </div>
+</div>
+<div class="form-group">
+  <%= f.label :first_name, "First Name *", :class => "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+    <%= f.text_field :first_name, :class => "form-control" %>
+  </div>
+</div>
+<div class="form-group">
+  <%= f.label :last_name, "Last Name *", :class => "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+    <%= f.text_field :last_name, :class => "form-control" %>
+  </div>
+</div>
+<div class="form-group">
+  <%= f.label :email, "Email *", :class => "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+    <%= f.text_field :email, :class => "form-control" %>
+  </div>
+</div>
+<div class="form-group">
+  <%= f.label :country_id, "Country *", :class => "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+    <%= f.select :country_id, Country.list, {},:class => "form-control",
+                 :onchange => 'update_price_by_country(this)' %>
+  </div>
+</div>
+<div class="form-group">
+  <%= f.label :gender, "Gender *", :class => "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+    <label class="radio-inline">
+      <%= f.radio_button :gender, "female" %> Female
+    </label>
+    <label class="radio-inline">
+      <%= f.radio_button :gender, "male" %> Male
+    </label>
+  </div>
+</div>

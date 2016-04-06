@@ -1,0 +1,15 @@
+<div class="form-group">
+  <%= label :user, :room_type_id, "Room Type *", :class => "col-sm-12 control-label" %>
+  <div class="col-sm-12">
+    <% room_types.all.each do |room_type| %>
+      <div class="radio">
+        <label>
+          <% checked = @user.room_type_id.nil? ? RoomType.first.id : @user.room_type_id %>
+          <%= radio_button :user, :room_type_id, room_type.room_type.id, 
+                           :checked => room_type.room_type.id == checked %>
+          <%= room_type.room_type.name %>&nbsp;(<%= number_to_currency(room_type.price) %>)
+        </label>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Aea</title>
+  <%= stylesheet_link_tag    'application', "responsive.css" %>
+  <%= javascript_include_tag 'application' %>
+  <!--[if lt IE 9]>
+    <script src="/assets/html5shiv.js"></script>
+    <script src="/assets/respond.min.js"></script>
+  <![endif]-->
+
+  <%= csrf_meta_tags %>
+</head>
+<body id="home" class="homepage">
+  <header id="header">
+    <nav id="main-menu" class="navbar navbar-default navbar-fixed-top" role="banner">
+      <div class="col-sm-12 info" style="background-color:#1fb7a6">
+        <div class="col-md-6 hidden-xs">&nbsp;</div>
+        <div class="col-md-6 hidden-xs" id="login-pan">
+          <%= raw welcome_text %>
+        </div>
+      </div>
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.html"><%= image_tag "logo.jpg", :alt => "logo" %></a>
+        </div>
+
+        <div class="collapse navbar-collapse navbar-right">
+          <ul class="nav navbar-nav">
+            <li class="scroll active"><a href="#home">Home</a></li>
+            <li class="scroll">
+              <%= link_to "User", admin_users_path  %>
+            </li>
+            <li class="scroll">
+              <%= link_to "User Type", admin_user_types_path  %>
+            </li>
+            <li class="scroll">
+              <%= link_to "Room Type", admin_room_types_path  %>
+            </li>
+            <li class="scroll">
+              <%= link_to "Countries", admin_countries_path  %>
+            </li>
+            <li class="scroll">
+              <%= link_to "Shuttle Buses", admin_shuttle_buses_path  %>
+            </li>
+          </ul>
+        </div>
+      </div><!--/.container-->
+    </nav><!--/nav-->
+  </header><!--/header-->
+
+  <section>
+    <div class="admin container">
+      <% flash.each do |key, value| %>
+        <div class="alert alert-<%= flash_type(key) %> alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <%= value %>
+        </div>
+      <% end %>
+      <%= yield %>
+    </div>
+  </section>
+
+  <footer id="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6">
+          &copy; 2014 Your Company. Designed by <a target="_blank" href="http://shapebootstrap.net/" title="Free Twitter Bootstrap WordPress Themes and HTML templates">ShapeBootstrap</a>
+        </div>
+        <div class="col-sm-6">
+          <ul class="social-icons">
+            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+            <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+            <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+            <li><a href="#"><i class="fa fa-behance"></i></a></li>
+            <li><a href="#"><i class="fa fa-flickr"></i></a></li>
+            <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+            <li><a href="#"><i class="fa fa-github"></i></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer><!--/#footer-->
+  
+
+</body>
+</html>

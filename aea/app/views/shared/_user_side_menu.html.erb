@@ -1,0 +1,22 @@
+<div class="col-md-3 padding_t_20">
+  <div class="col-md-12 padding_t_b_5">
+    <%= link_to "Edit Profile", edit_user_registration_path %>
+  </div>
+  <div class="col-md-12 padding_t_b_5">
+    <%= link_to "Register Event", register_event_user_path %>
+  </div>
+  <div class="col-md-12 padding_t_b_5">
+    <%= link_to "Change Password", edit_user_path %>
+  </div>
+  <div class="col-md-12 padding_t_b_5">
+    <%= link_to "Payment Confirmation" %>
+  </div>
+  <div class="col-md-12 padding_t_b_5">
+    <%= link_to "Pick Up Schedule", users_pick_up_schedule_path %>
+  </div>
+  <% if current_user.is_team_lead? %>
+    <div class="col-md-12 padding_t_b_5">
+      <%= link_to "Register Member", users_registrants_path %>
+    </div>
+  <% end %>
+</div>

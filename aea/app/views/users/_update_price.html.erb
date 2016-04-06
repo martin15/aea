@@ -1,0 +1,22 @@
+<div class="form-group">
+  <%= label :user, :room_type_id, "Room Type *", :class => "col-sm-12 control-label" %>
+  <div class="col-sm-12">
+    <% room_types.all.each do |room_type| %>
+      <div class="radio">
+        <label>
+          <% checked = @user.room_type_id.nil? ? RoomType.first.id : @user.room_type_id %>
+          <%= radio_button :user, :room_type_id, room_type.room_type.id,
+                           :checked => room_type.room_type.id == checked,
+                           :onclick => "display_roomate_field()" %>
+          <%= room_type.room_type.name %>&nbsp;(<b><%= number_to_currency(room_type.price) %></b>)
+        </label>
+      </div>
+    <% end %>
+  </div>
+</div>
+<div class="form-group <%= hide_roomate(@user) %>" id="roomate">
+  <%= label :user, :roomate, :class => "col-sm-12 control-label" %>
+  <div class="col-sm-12">
+    <%= text_field :user, :roomate, :autocomplete => "off", :class => "form-control" %>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+<div class="col-md-12 content">
+  <h2>Room Types</h2>
+  <div class="col-md-12">
+    <p><%#= raw msg_flash(flash) %></p>
+    <p>
+      <%= link_to "Add new room_type", new_admin_room_type_path %>
+    </p>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @room_types.each_with_index do |room_type, x| %>
+          <tr>
+            <th scope="row"><%= @no+x+1 %></th>
+            <td><%= room_type.name %></td>
+            <td>
+              <%= link_to "Edit", edit_admin_room_type_path(room_type), :class => "btn btn-success" %>
+              <%= link_to "Delete", admin_room_type_path(room_type.id ), :method => :delete,
+                                    data: {:confirm => "Are you sure?"}, :class => "btn btn-warning" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <div class="admin-row">
+      <%= paginate @room_types, :link_separator => " | ",
+                                 :previous_label => "&laquo; previous",
+                                 :next_label => "next &raquo;" %>
+
+    </div>
+  </div>
+</div>

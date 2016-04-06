@@ -1,0 +1,72 @@
+<%# content_for :javascript_includes do %>
+  <%#= javascript_include_tag "/assets/ckeditor/ckeditor" %>
+<%# end %>
+
+<% if @registrant.errors.any? %>
+  <div class="alert alert-danger alert-dismissable" group="alert">
+    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <h4><%= pluralize(@registrant.errors.count, "error") %> prohibited this group from being saved:</h4>
+    <ul>
+    <% @registrant.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+<div class="form-group">
+  <%= f.label :title, "Title *", :class => "col-sm-12 control-label" %>
+  <div class="col-sm-12">
+    <%= f.select :title, list_title, {},:class => "form-control" %>
+  </div>
+</div>
+<div class="form-group">
+  <%= f.label :first_name, "First Name *", :class => "col-sm-12 control-label" %>
+  <div class="col-sm-12">
+    <%= f.text_field :first_name, :class => "form-control" %>
+  </div>
+</div>
+<div class="form-group">
+  <%= f.label :last_name, "Last Name *", :class => "col-sm-12 control-label" %>
+  <div class="col-sm-12">
+    <%= f.text_field :last_name, :class => "form-control" %>
+  </div>
+</div>
+<div class="form-group">
+  <%= f.label :email, "Email *", :class => "col-sm-12 control-label" %>
+  <div class="col-sm-12">
+    <%= f.text_field :email, :class => "form-control" %>
+  </div>
+</div>
+<div class="form-group">
+  <%= f.label :passport_number, "Passport Number *", :class => "col-sm-12 control-label" %>
+  <div class="col-sm-12">
+    <%= f.text_field :passport_number, :class => "form-control" %>
+  </div>
+</div>
+<div class="form-group">
+  <%= f.label :age, "Age *", :class => "col-sm-12 control-label" %>
+  <div class="col-sm-12">
+    <%= f.text_field :age, :class => "form-control" %>
+  </div>
+</div>
+<div class="form-group">
+  <%= f.label :country_id, "Country *", :class => "col-sm-12 control-label" %>
+  <div class="col-sm-12">
+    <%= f.select :country_id, Country.list, {},:class => "form-control",
+                 :onchange => 'update_price_by_country(this)' %>
+  </div>
+</div>
+<div class="form-group">
+  <%= f.label :gender, "Gender *", :class => "col-sm-12 control-label" %>
+  <div class="col-sm-12">
+    <label class="radio-inline">
+      <%= f.radio_button :gender, "female" %> Female
+    </label>
+    <label class="radio-inline">
+      <%= f.radio_button :gender, "male" %> Male
+    </label>
+  </div>
+</div>
+<div id="price">
+  <%= render :partial => "update_price", :locals => {:room_types => @room_types} %>
+</div>

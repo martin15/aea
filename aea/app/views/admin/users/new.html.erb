@@ -1,0 +1,15 @@
+<div class="col-md-12 content">
+  <h2>New User</h2>
+  <div class="col-md-12">
+    <%= form_for([:admin, @user], :html => { :multipart => true,  :class => "form-horizontal"}) do |f| %>
+      <%= render :partial => 'form', :locals => { :f => f} %>
+      <div class="form-group">
+        <div class="col-sm-2">&nbsp;</div>
+        <div class="col-sm-10">
+          <%= f.submit :class => "btn btn-success" %>
+          <%= link_to 'Back', admin_users_path, :class => "btn btn-info" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
