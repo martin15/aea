@@ -90,12 +90,27 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
 
+#  config.action_mailer.smtp_settings = {
+#    :authentication => :plain,
+#    :address => "smtp.mailgun.org",
+#    :port => 587,
+#    :domain => "heritageembroiderystore.com.mailgun.org",
+#    :user_name => "postmaster@heritageembroiderystore.com.mailgun.org",
+#    :password => "2m9cl6dwxud7"
+#  }
+
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default_options = {from: 'no-reply@aeaga2016.com'}
+  config.mailer_sender = '"aeaga2016.com" <no-reply@aeaga2016.com>'
+  config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    :authentication => :plain,
-    :address => "smtp.mailgun.org",
-    :port => 587,
-    :domain => "heritageembroiderystore.com.mailgun.org",
-    :user_name => "postmaster@heritageembroiderystore.com.mailgun.org",
-    :password => "2m9cl6dwxud7"
+    :address              => "smtp.gmail.com",
+    :port                 => 587,
+    :domain               => "aeaga2016.com",
+    :user_name            => "aeaga2016@gmail.com",
+    :password             => "30012016BDG",
+    :authentication       => :plain,
+    :enable_starttls_auto => true
   }
 end
