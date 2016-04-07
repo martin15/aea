@@ -25,7 +25,8 @@ class User < ActiveRecord::Base
   end
 
   def is_team_lead?
-    self.user_type.name == "National Alliance"
+    return false if self.user_type.nil?
+    return self.user_type.name == "National Alliance"
   end
 
   def is_admin?
