@@ -28,10 +28,10 @@ user_type_4 = UserType.find_or_create_by( :name => 'Partner & Observers' )
 user_type_5 = UserType.find_or_create_by( :name => 'Representative of Local Leaders' )
 
 user  = User.find_by_email("aeaga2016@gmail.com")
-unless user.nil?
+if user.nil?
   user_type_5 = User.create( :email => 'aeaga2016@gmail.com', :password => "30012016BDG",
                              :password_confirmation => "30012016BDG",
-                             :first => "admin", :last => "admin",
+                             :first_name => "admin", :last_name => "admin",
                              :passport_number => "12345678", :age => "99",
                              :confirmed_at => Time.now, :country_id => country_10.id,
                              :user_type_id => user_type_5.id, :gender => 'male',
