@@ -1,0 +1,50 @@
+<section class="registration">
+  <div class="user container">
+    <div class="row">
+      <%= render :partial => "/shared/user_side_menu" %>
+      <div class="col-sm-9 content">
+        <div class="box">
+          <h2>Upload Ticket</h2>
+          <div class="col-md-12">
+            <%= form_for([:users, @ticket], :url => users_ticket_path,
+                          :html => { :multipart => true, :method => :put,
+                                     :class => "form-horizontal"}) do |f| %>
+              <% if @ticket.ticket_exist %>
+                <div class="form-group">
+                  <div class="col-sm-12">
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                      <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">
+                              <%= @ticket.filename_identifier %>
+                            </h4>
+                          </div>
+                          <div class="modal-body">
+                            <%= image_tag @ticket.filename_url, :class => "img-responsive" %>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <%= link_to (image_tag @ticket.filename_url(:medium), :class => "img-responsive"),
+                               "#", :data => {:toggle=>"modal", :target => "#myModal"} %>
+                  </div>
+                </div>
+              <% end %>
+              <%= render :partial => 'form', :locals => { :f => f} %>
+              <div class="form-group">
+                <div class="col-sm-12">
+                  <%= f.submit :class => "btn btn-success" %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

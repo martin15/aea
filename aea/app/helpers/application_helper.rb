@@ -2,6 +2,7 @@ module ApplicationHelper
 
   def flash_type(type)
      return 'danger' if type == 'alert'
+     return 'danger' if type == 'error'
      return 'success' if type == 'notice'
   end
 
@@ -26,5 +27,13 @@ module ApplicationHelper
   def hide_roomate(user)
     return "" if @user.room_type_id.nil?
     return @user.room_type.name.downcase == "double" ? "" : "hidden_app"
+  end
+
+  def active_side_menu(obj)
+    if obj.is_a?(Array)
+      return 'active-menu' if obj.include?(action_name) && controller_name == "users"
+    else
+      return 'active-menu' if controller_name == obj
+    end
   end
 end

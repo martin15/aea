@@ -35,7 +35,7 @@
               <div class="form-group">
                 <%= f.label :user_type_id, "User Type *", :class => "col-sm-12 control-label" %>
                 <div class="col-sm-12">
-                  <% UserType.all.each do |user_type| %>
+                  <% UserType.list_valid_type.each do |user_type| %>
                     <div class="radio">
                       <label>
                         <% checked = @user.user_type.nil? ? UserType.first : @user.user_type %>

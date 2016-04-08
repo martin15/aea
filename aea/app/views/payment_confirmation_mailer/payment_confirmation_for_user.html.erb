@@ -23,7 +23,7 @@
                             <tr>
                               <th>
                                 <center data-parsed="">
-                                  <%= image_tag("http://aeaga2016.com/assets/logo.jpg", alt: "AEA 2016 Logo") %>
+                                  <%= image_tag("http://#{@domain}/assets/logo.jpg", alt: "AEA 2016 Logo") %>
                                 </center>
                               </th>
                               <th class="expander"></th>
@@ -34,39 +34,72 @@
                   </tbody>
                 </table>
                 <table class="row">
-                  <tbody>
-                    <tr>
-                      <th class="small-12 large-12 columns first">
-                        <table>
-                          <tr>
-                            <th>
-                              <h2 style="margin-bottom: 30px;margin-top: 15px;">
-                                Reset Password Instructions
-                              </h2>
-                              <p>Hello <%= @resource.email %>!</p>
-
-                              <p>
-                                Someone has requested a link to change your password.
-                                You can do this through the link below.
-                              </p>
-
-                              <p>
-                                <%= link_to 'Change my password',
-                                            edit_password_url(@resource, reset_password_token: @token) %>
-                              </p>
-
-                              <p>If you didn't request this, please ignore this email.</p>
-                              <p>
-                                Your password won't change until you access the link above
-                                and create a new one.
-                              </p>
-                            </th>
-                          </tr>
-                        </table>
-                      </th>
-                    </tr>
-                  </tbody>
-                </table>
+                <tbody>
+                  <tr>
+                    <th class="small-12 large-12 columns first">
+                      <table>
+                        <tr>
+                          <th>
+                            <h2>Payment Confirmation</h2>
+                            <p>
+                              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam at,
+                              nihil quas harum mollitia dolores odio. Inventore delectus nihil
+                              soluta quos, magni doloribus, voluptas aspernatur explicabo atque
+                              perspiciatis possimus
+                              voluptates.
+                            </p>
+                            <p><a href="#">Learn more</a></p>
+                          </th>
+                        </tr>
+                      </table>
+                    </th>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="row">
+                <tbody>
+                  <tr>
+                    <th class="small-12 large-6 columns first">
+                      <table>
+                        <tr>
+                          <th>
+                            <h4>Sub Section Title</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod eum eius numquam sint dolore voluptatibus beatae ab ad, dignissimos fugiat? Nisi odio commodi debitis eveniet tenetur provident aliquid tempora placeat.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod eum eius numquam sint dolore voluptatibus beatae ab ad, dignissimos fugiat? Nisi odio commodi debitis eveniet tenetur provident aliquid tempora placeat.</p>
+                          </th>
+                        </tr>
+                      </table>
+                    </th>
+                  <th class="small-12 large-6 columns last">
+                    <table>
+                      <tr>
+                        <th>
+                          <h4>Sub Section Title</h4>
+                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod eum eius numquam sint dolore voluptatibus beatae ab ad, dignissimos fugiat? Nisi odio commodi debitis eveniet tenetur provident aliquid tempora placeat.</p>
+                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod eum eius numquam sint dolore voluptatibus beatae ab ad, dignissimos fugiat? Nisi odio commodi debitis eveniet tenetur provident aliquid tempora placeat.</p>
+                        </th>
+                      </tr>
+                    </table>
+                  </th>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="row">
+                <tbody>
+                  <tr>
+                    <th class="small-12 large-12 columns first last">
+                      <table>
+                        <tr>
+                          <th>
+                            <p>You received this email because you&apos;re signed up to receive updates from us. <a href="#">Click here to unsubscribe.</a></p>
+                          </th>
+                          <th class="expander"></th>
+                        </tr>
+                      </table>
+                    </th>
+                  </tr>
+                </tbody>
+              </table>
               </td>
               </tr>
             </tbody>

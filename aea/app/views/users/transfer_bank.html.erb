@@ -1,0 +1,31 @@
+<section class="registration">
+  <div class="user container">
+    <div class="row">
+      <%= render :partial => "/shared/user_side_menu" %>
+      <div class="col-sm-9 content">
+        <div class="box">
+          <h2>Transfer Bank BCA</h2>
+          <p>
+            Terima kasih atas partisipasi anda dalam mengikuti acara AEA 2016<br /><br />
+            Metode Pembayaran yang Anda pilih : Bank Transfer<br />
+
+            Nomor Invoice #301094<br />
+            Jumlah Tagihan : <%= number_to_currency(@user.price, unit: "Rp. ") %><br />
+            Tanggal Jatuh Tempo : 14/04/2016<br /><br />
+
+            <h4>CARA PEMBAYARAN BANK DAN REKENING TUJUAN</h4>
+            Silakan masukkan nomor invoice ( 301094 ) dalam BERITA pada saat Anda
+            melakukan pembayaran melalui ATM Non-Tunai, setoran Bank, atau Internet Banking.
+            Anda dapat melakukan pembayaran ke nomor rekening berikut :<br /><br />
+            <h5>Bank BCA</h5>
+            No. Rekening : 0851183832<br />
+            Atas Nama    : Martin<br /><br /><br /><br />
+
+
+            Terima kasih atas perhatian dan partisipasi Anda.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

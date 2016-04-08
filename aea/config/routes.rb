@@ -19,7 +19,9 @@ Rails.application.routes.draw do
     get 'pick_up_schedule/edit' => 'pick_up_schedule#edit', :as => "edit_pick_up_schedule"
     put 'pick_up_schedule/update' => 'pick_up_schedule#update', :as => "update_pick_up_schedule"
     get "registrants/total_price" => 'registrants#total_price'
+    resources :payment_confirmations, :only => [:new, :create]
     resources :registrants
+    resources :tickets, :only => [:edit, :update]
     get 'update_price_by_country' => "registrants#update_price_by_country"
   end
 

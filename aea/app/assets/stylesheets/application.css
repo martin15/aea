@@ -1030,3 +1030,8 @@ section.registration{
 .no-margin-b{
   margin-bottom: 0px;
 }
+
+a.active-menu{
+  color: #da2933;
+  text-decoration: underline;
+}

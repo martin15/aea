@@ -8,7 +8,6 @@ class UsersController < ApplicationController
   end
 
   def update_password
-    puts "\\\\\\\\\\\\\\\\\\\\\\\\\\\\"
     @user = User.find(current_user.id)
     if @user.update(user_params)
       # Sign in the user by passing validation in case their password changed
@@ -32,7 +31,7 @@ class UsersController < ApplicationController
     @user = current_user
     if @user.country.name.downcase == "indonesia"
       @room_type = RoomTypesUserType.where("country_type = '#{@user.country.permalink}'").first
-      params[:user][:user_type_id] = UserType.find_by_permalink('aea-executive').id
+      params[:user][:user_type_id] = UserType.find_by_permalink('representative-of-local-leaders').id
     else
       @room_type = RoomTypesUserType.where("user_type_id = #{params[:user][:user_type_id]} and
                                             room_type_id = #{params[:user][:room_type_id]} and
@@ -42,7 +41,15 @@ class UsersController < ApplicationController
     @user.price = @room_type.price
     params[:user][:roomate] = "" if @room_type.room_type.name.downcase == "single"
     if @user.update(user_params)
-      redirect_to users_path
+      if @user.payment_type == "bank_bca"
+        #kirim email
+        render "transfer_bank"
+        return
+      elsif @user.payment_type == "on_the_spot"
+        #kirim email
+        render "on_the_spot"
+        return
+      end
     else
       flash[:error] = "Please complete all field"
       render "register_event"

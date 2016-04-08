@@ -1,0 +1,28 @@
+<%# content_for :javascript_includes do %>
+  <%#= javascript_include_tag "/assets/ckeditor/ckeditor" %>
+<%# end %>
+
+<% if @ticket.errors.any? %>
+  <div class="alert alert-danger alert-dismissable" group="alert">
+    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <h4><%= pluralize(@ticket.errors.count, "error") %> prohibited this group from being saved:</h4>
+    <ul>
+    <% @ticket.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+<div class="form-group no-margin-b">
+  <%= f.label :filename, "Ticket Image *", :class => "col-sm-12 control-label" %>
+  <div class="col-sm-12">
+    <%= f.file_field :filename,:class => "form-control" %>
+  </div>
+</div>
+<div class="form-group">
+  <div class="col-sm-12">
+    Please upload image with size 600x800 pixel (height x width)
+  </div>
+</div>
+
+

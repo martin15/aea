@@ -7,7 +7,9 @@ class User < ActiveRecord::Base
   attr_accessor :skip_password_validation
 
   has_one :pick_up_schedule
+  has_one :ticket
   has_many :members, :class_name => "User", :foreign_key => :leader_id
+  has_many :payment_confirmations
 
   belongs_to :team_leader, :class_name => "User", :foreign_key => :leader_id
 
@@ -31,6 +33,10 @@ class User < ActiveRecord::Base
 
   def is_admin?
     self.email == "aeaga2016@gmail.com" || self.email == "martin.me15@yahoo.com"
+  end
+
+  def payment_method_is_transfer_bank?
+    self.payment_type == "bank_bca"
   end
 
   protected

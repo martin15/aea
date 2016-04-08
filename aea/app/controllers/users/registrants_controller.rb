@@ -1,4 +1,5 @@
 class Users::RegistrantsController < Users::ApplicationController
+  before_filter :check_authority
   before_filter :find_registrant, :only => [:show, :edit, :update, :destroy]
 
   def index
@@ -13,7 +14,7 @@ class Users::RegistrantsController < Users::ApplicationController
   def new
     @user = current_user
     @registrant = User.new(:country_id => @user.country_id)
-    user_type_id = UserType.find_by_permalink("member").id
+    user_type_id = @user.user_type_id
     @room_types = RoomTypesUserType.where("user_type_id = #{user_type_id} and
                                            country_type = '#{@user.country.category_type}'")
   end
@@ -22,8 +23,7 @@ class Users::RegistrantsController < Users::ApplicationController
     @user = current_user
     @registrant = User.new(user_params)
     @registrant.team_leader = current_user
-    user_type = UserType.find_by_permalink("member")
-    @registrant.user_type = user_type
+    @registrant.user_type = @user.user_type_id
     @registrant.skip_password_validation = true
     @registrant.price = find_room_price
     if @registrant.save
@@ -98,7 +98,7 @@ class Users::RegistrantsController < Users::ApplicationController
     def find_registrant
       @registrant = current_user.members.where("id = #{params[:id]}").first
       if @registrant.nil?
-        flash[:error] = "Cannot find User with id = #{params[:id]}"
+        flash[:alert] = "Cannot find User with id = #{params[:id]}"
         redirect_to users_registrants_path
       end
     end
@@ -111,4 +111,10 @@ class Users::RegistrantsController < Users::ApplicationController
       @room.price
     end
 
+    def check_authority
+      unless current_user.is_team_lead?
+        flash[:alert] = "You don't have authority to access this page"
+        redirect_to users_path
+      end
+    end
 end
