@@ -25,8 +25,8 @@ module ApplicationHelper
   end
 
   def hide_roomate(user)
-    return "" if @user.room_type_id.nil?
-    return @user.room_type.name.downcase == "double" ? "" : "hidden_app"
+    return "" if user.room_type_id.nil?
+    return user.room_type.name.downcase == "double" ? "" : "hidden_app"
   end
 
   def active_side_menu(obj)
@@ -35,5 +35,9 @@ module ApplicationHelper
     else
       return 'active-menu' if controller_name == obj
     end
+  end
+
+  def admin_active_menu(obj)
+    return 'active' if controller_name == obj
   end
 end

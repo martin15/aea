@@ -3,7 +3,7 @@
 <head>
   <title>Admin Aea</title>
   <%= stylesheet_link_tag    'application', "responsive.css" %>
-  <%= javascript_include_tag 'application' %>
+  <%= javascript_include_tag 'admin' %>
   <!--[if lt IE 9]>
     <script src="/assets/html5shiv.js"></script>
     <script src="/assets/respond.min.js"></script>
@@ -28,26 +28,28 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="index.html"><%= image_tag "logo.jpg", :alt => "logo" %></a>
+          <%= link_to (image_tag "logo.jpg", :alt => "logo"), root_path, class: "navbar-brand" %>
         </div>
 
         <div class="collapse navbar-collapse navbar-right">
           <ul class="nav navbar-nav">
-            <li class="scroll active"><a href="#home">Home</a></li>
-            <li class="scroll">
+            <li class="scroll <%= admin_active_menu('users') %>">
               <%= link_to "User", admin_users_path  %>
             </li>
-            <li class="scroll">
+            <li class="scroll <%= admin_active_menu('user_types') %>">
               <%= link_to "User Type", admin_user_types_path  %>
             </li>
-            <li class="scroll">
+            <li class="scroll <%= admin_active_menu('room_types') %>">
               <%= link_to "Room Type", admin_room_types_path  %>
             </li>
-            <li class="scroll">
+            <li class="scroll <%= admin_active_menu('countries') %>">
               <%= link_to "Countries", admin_countries_path  %>
             </li>
-            <li class="scroll">
+            <li class="scroll <%= admin_active_menu('shuttle_buses') %>">
               <%= link_to "Shuttle Buses", admin_shuttle_buses_path  %>
+            </li>
+            <li class="scroll <%= admin_active_menu('pick_up_schedules') %>">
+              <%= link_to "Pick Up Schedule", admin_pick_up_schedules_path  %>
             </li>
           </ul>
         </div>

@@ -1,5 +1,5 @@
 class Admin::UsersController < Admin::ApplicationController
-  before_filter :find_user, :only => [:edit, :update, :destroy, :delete]
+  before_filter :find_user, :only => [:edit, :update, :destroy, :delete, :confirm, :save_confirmed]
 
   def index
     @users = User.all.page(params[:page]).per(20)
@@ -38,6 +38,21 @@ class Admin::UsersController < Admin::ApplicationController
     flash[:notice] =  @user.destroy ? 'User was successfully deleted.' :
                                            'User was falied to delete.'
     redirect_to admin_users_path
+  end
+
+  def confirm
+  end
+
+  def save_confirmed
+    @user.status = "Approved"
+    @user.approved_at = DateTime.now.to_s(:db)
+    if @user.save
+      flash[:notice] = 'User was successfully Confirmed.'
+      redirect_to admin_users_path
+    else
+      flash[:error] = "User failed to Confirmed"
+      render :action => :confirm
+    end
   end
 
   private

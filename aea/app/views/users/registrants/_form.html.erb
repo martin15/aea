@@ -70,3 +70,9 @@
 <div id="price">
   <%= render :partial => "update_price", :locals => {:room_types => @room_types} %>
 </div>
+<div class="form-group">
+  <%= f.label :note, "Note", :class => "col-sm-12 control-label" %>
+  <div class="col-sm-12">
+    <%= f.text_area :note, :class => "col-sm-12 control-label" %>
+  </div>
+</div>

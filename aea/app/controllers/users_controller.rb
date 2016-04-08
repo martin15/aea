@@ -50,6 +50,7 @@ class UsersController < ApplicationController
         render "on_the_spot"
         return
       end
+      redirect_to register_event_user_path
     else
       flash[:error] = "Please complete all field"
       render "register_event"
@@ -71,6 +72,7 @@ class UsersController < ApplicationController
   def user_params
     # NOTE: Using `strong_parameters` gem
     params.require(:user).permit(:password, :password_confirmation, :user_type_id, :room_type_id,
-                                 :age, :title, :passport_number, :payment_type, :roomate, :price )
+                                 :age, :title, :passport_number, :payment_type, :roomate, :price,
+                                 :note )
   end
 end

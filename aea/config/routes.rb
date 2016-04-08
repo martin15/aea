@@ -27,8 +27,12 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :countries
+    get "pick_up_schedules/download_schedule_report" => "pick_up_schedules#download_schedule_report", :as => "download_schedule_report"
+    resources :pick_up_schedules
     resources :room_types
     resources :shuttle_buses
+    get "users/:id/confirm" => "users#confirm", :as => "user_confirm"
+    post "users/:id/save_confirmed" => "users#save_confirmed", :as => "save_user_confirmed"
     resources :users
     resources :user_types
 

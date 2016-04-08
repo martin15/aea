@@ -1,0 +1,55 @@
+<div class="col-md-12 content">
+  <h2>Shuttle Bus</h2>
+  <div class="col-md-12">
+    <p><%#= raw msg_flash(flash) %></p>
+    <p>
+      <%= link_to "Download as excel", admin_download_schedule_report_path(format: "xls") %>
+    </p>
+    <table class="table table-hover">
+      <thead>
+        <tr rowspan="2">
+          <th>&nbsp;</th>
+          <th>&nbsp;</th>
+          <th colspan="3" style="text-align:center;border-right: 1px solid #ddd">Arriving</th>
+          <th colspan="3" style="text-align:center">Departure</th>
+        </tr>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Time</th>
+          <th>Airport</th>
+          <th style="border-right: 1px solid #ddd">Flight No</th>
+          <th>Time</th>
+          <th>Airport</th>
+          <th>Flight No</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @pick_up_schedules.each_with_index do |pick_up_schedule, x| %>
+          <tr>
+            <td scope="row"><%= @no+x+1 %></td>
+            <td><%= pick_up_schedule.try(:user).try(:full_name) %></td>
+            <td>
+              <%= pick_up_schedule.try(:arriving_date).try(:strftime, "%Y %b %d") %>&nbsp;-&nbsp;
+              <%= pick_up_schedule.try(:arriving_time).try(:strftime, "%H:%M") %>
+            </td>
+            <td><%= pick_up_schedule.arriving_airport %></td>
+            <td style="border-right: 1px solid #ddd"><%= pick_up_schedule.arriving_flight_number %></td>
+            <td>
+              <%= pick_up_schedule.try(:departing_date).try(:strftime, "%Y %b %d") %>&nbsp;-&nbsp;
+              <%= pick_up_schedule.try(:departing_time).try(:strftime, "%H:%M") %>
+            </td>
+            <td><%= pick_up_schedule.departing_airport %></td>
+            <td><%= pick_up_schedule.departing_flight_number %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <div class="admin-row">
+      <%= paginate @pick_up_schedules, :link_separator => " | ",
+                                 :previous_label => "&laquo; previous",
+                                 :next_label => "next &raquo;" %>
+
+    </div>
+  </div>
+</div>

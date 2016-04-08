@@ -2,8 +2,8 @@ class Admin::CountriesController < Admin::ApplicationController
   before_filter :find_country, :only => [:edit, :update, :destroy, :delete]
 
   def index
-    @countries = Country.all.page(params[:page]).per(10)
-    @no = paging(10)
+    @countries = Country.all.page(params[:page]).per(20)
+    @no = paging(20)
   end
 
   def new

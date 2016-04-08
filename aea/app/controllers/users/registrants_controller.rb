@@ -23,14 +23,14 @@ class Users::RegistrantsController < Users::ApplicationController
     @user = current_user
     @registrant = User.new(user_params)
     @registrant.team_leader = current_user
-    @registrant.user_type = @user.user_type_id
+    @registrant.user_type = @user.user_type
     @registrant.skip_password_validation = true
     @registrant.price = find_room_price
     if @registrant.save
       flash[:notice] = 'Member was successfully create.'
       redirect_to users_registrants_path
     else
-      @room_types = RoomTypesUserType.where("user_type_id = #{user_type.id} and
+      @room_types = RoomTypesUserType.where("user_type_id = #{@user.user_type_id} and
                                            country_type = '#{@user.country.category_type}'")
       flash[:error] = "Member failed to create"
       render :action => :new
@@ -39,20 +39,20 @@ class Users::RegistrantsController < Users::ApplicationController
 
   def edit
     @user = current_user
-    user_type_id = UserType.find_by_permalink("member").id
-    @room_types = RoomTypesUserType.where("user_type_id = #{user_type_id} and
+    @room_types = RoomTypesUserType.where("user_type_id = #{@user.user_type_id} and
                                            country_type = '#{@user.country.category_type}'")
   end
 
   def update
     @user = current_user
     @registrant.price = find_room_price
+    room_type = RoomType.find_by_id(params[:user][:room_type_id])
+    params[:user][:roomate] = "" if room_type.name.downcase == "single"
     if @registrant.update_attributes(user_params)
       flash[:notice] = 'Member was successfully updated.'
       redirect_to users_registrants_path
     else
-      user_type_id = UserType.find_by_permalink("member").id
-      @room_types = RoomTypesUserType.where("user_type_id = #{user_type_id} and
+      @room_types = RoomTypesUserType.where("user_type_id = #{@user.user_type_id} and
                                              country_type = '#{@registrant.country.category_type}'")
       flash[:error] = "Member failed to update"
       render :action => :edit
@@ -92,7 +92,7 @@ class Users::RegistrantsController < Users::ApplicationController
       # NOTE: Using `strong_parameters` gem
       params.require(:user).permit(:first_name, :last_name, :email, :user_type_id,
                                    :age, :title, :passport_number, :room_type_id,
-                                   :price, :gender, :country_id )
+                                   :price, :gender, :country_id, :note, :roomate )
     end
 
     def find_registrant

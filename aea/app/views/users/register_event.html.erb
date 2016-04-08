@@ -90,6 +90,12 @@
               </div>
             <% end %>
             <div class="form-group">
+              <%= f.label :note, "Note", :class => "col-sm-12 control-label" %>
+              <div class="col-sm-12">
+                <%= f.text_area :note, :class => "col-sm-12 control-label" %>
+              </div>
+            </div>
+            <div class="form-group">
               <div class="col-sm-12">
                 <%= f.submit "Register", :class => "btn btn-success" %>
               </div>
