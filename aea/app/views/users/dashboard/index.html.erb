@@ -2,4 +2,8 @@
 
 <div class="col-md-9">
   <h2>Welcome <%= current_user.full_name %></h2>
+
+  <% if current_user.is_admin? %>
+    <p>Click <%= link_to "here", admin_path, :target => "blank" %> to manage web content</p>
+  <% end %>
 </div>
