@@ -335,7 +335,7 @@ ul.nostyle i {
 #cta2 h2 > span {
   color: #45aed6;
 }
-#features, #statement {
+#features, #statement, #registration {
   padding: 160px 0;
 }
 #features .media.service-box:first-child {
