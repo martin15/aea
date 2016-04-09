@@ -9,6 +9,7 @@ class Users::PickUpScheduleController < Users::ApplicationController
   end
 
   def update
+    @pick_up_schedule.user = current_user
     if @pick_up_schedule.update_attributes(pick_up_schedule_params)
       flash[:notice] = 'UserType was successfully updated.'
       redirect_to users_pick_up_schedule_path

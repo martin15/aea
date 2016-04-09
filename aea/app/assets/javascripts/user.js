@@ -24,7 +24,7 @@ function update_price_by_country(select_box) {
 function display_roomate_field(){
     var selected = $("input[type='radio'][name='user[room_type_id]']:checked");
     roomtype = selected.parent().text();
-    if (roomtype.toLowerCase().indexOf("double") >= 0){
+    if (roomtype.toLowerCase().indexOf("twin sharing room") >= 0){
       $("#roomate").show();
     }else{
       $("#roomate").hide();

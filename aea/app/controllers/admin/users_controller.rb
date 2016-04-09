@@ -58,7 +58,9 @@ class Admin::UsersController < Admin::ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:name, :permalink)
+      params.require(:user).permit(:first_name, :last_name, :email, :user_type_id,
+                                   :age, :title, :passport_number, :room_type_id,
+                                   :price, :gender, :country_id, :note, :roomate)
     end
 
     def find_user
