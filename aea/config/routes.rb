@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   get "admin" => "admin/dashboard#index", as: 'admin'
 
   namespace :users do
-    get 'pick_up_schedule' => 'pick_up_schedule#index', :as => "pick_up_schedule"
+    #get 'pick_up_schedule' => 'pick_up_schedule#index', :as => "pick_up_schedule"
     get 'pick_up_schedule/edit' => 'pick_up_schedule#edit', :as => "edit_pick_up_schedule"
     put 'pick_up_schedule/update' => 'pick_up_schedule#update', :as => "update_pick_up_schedule"
     get "registrants/total_price" => 'registrants#total_price'

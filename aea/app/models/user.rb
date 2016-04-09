@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
   validates :age, :presence => true, :numericality => true
 
   def full_name
-    "#{self.try(:first_name)} #{self.try(:last_name)}"
+    "#{self.try(:title)} #{self.try(:first_name)} #{self.try(:last_name)}"
   end
 
   def is_team_lead?

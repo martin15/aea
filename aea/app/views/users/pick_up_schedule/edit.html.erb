@@ -5,19 +5,36 @@
 
 <section class="registration">
   <div class="user container">
-    <% flash.each do |key, value| %>
-      <div class="alert alert-<%= flash_type(key) %> alert-dismissible" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <%= value %>
-      </div>
-    <% end %>
     <div class="row">
       <%= render :partial => "/shared/user_side_menu" %>
       <div class="col-sm-9 content">
+        <div class="row box no-margin-b padding_b_10">
+          <h2>Shuttle Buses Information</h2>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Time</th>
+                <th>Airport Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @shuttle_buses.each_with_index do |shuttle_bus, x| %>
+                <tr>
+                  <th scope="row"><%= x+1 %></th>
+                  <td><%= shuttle_bus.name %></td>
+                  <td>
+                    <%= shuttle_bus.try(:pick_up_time).try(:strftime, "%H:%M") %>
+                  </td>
+                  <td><%= shuttle_bus.airport_name %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
         <div class="box">
-          <h2>Edit Pick Up Schedule</h2>
+          <h2>Travel Informations</h2>
           <%= form_for(@pick_up_schedule, :url => users_update_pick_up_schedule_path,
                        html: {  class: "form-horizontal", :method => :put } ) do |f| %>
             <div class="col-md-6 margin_b_30">
@@ -47,7 +64,7 @@
               <div class="form-group">
                 <%= f.label :arriving_airport, "Arriving Airport *", :class => "col-sm-12 control-label" %>
                 <div class="col-sm-12">
-                  <%= f.text_field :arriving_airport, :class => "form-control" %>
+                  <%= f.select :arriving_airport, airport_list, {},:class => "form-control" %>
                 </div>
               </div>
             </div>
@@ -78,7 +95,7 @@
               <div class="form-group">
                 <%= f.label :departing_airport, "Departing Airport *", :class => "col-sm-12 control-label" %>
                 <div class="col-sm-12">
-                  <%= f.text_field :departing_airport, :class => "form-control" %>
+                  <%= f.select :departing_airport, airport_list, {},:class => "form-control" %>
                 </div>
               </div>
             </div>

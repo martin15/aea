@@ -24,6 +24,10 @@ module ApplicationHelper
     [["Mr", "Mr"],["Mrs", "Mrs"],["Miss", "Miss"],["Pastor", "Pastor"],["Rev", "Rev"]]
   end
 
+  def airport_list
+    [["Jakarta - Soekarno Hatta", "Jakarta - Soekarno Hatta"],["Bandung - Husein Sastranegara", "Bandung - Husein Sastranegara"]]
+  end
+
   def hide_roomate(user)
     return "hidden_app" if user.room_type_id.nil?
     return user.room_type.name.downcase != RoomType.single_room ? "" : "hidden_app"

@@ -6,14 +6,16 @@ class Users::PickUpScheduleController < Users::ApplicationController
   end
 
   def edit
+    @shuttle_buses = ShuttleBus.order("pick_up_date, pick_up_time")
   end
 
   def update
     @pick_up_schedule.user = current_user
     if @pick_up_schedule.update_attributes(pick_up_schedule_params)
       flash[:notice] = 'UserType was successfully updated.'
-      redirect_to users_pick_up_schedule_path
+      redirect_to users_edit_pick_up_schedule_path
     else
+      @shuttle_buses = ShuttleBus.order("pick_up_date, pick_up_time")
       flash[:error] = "UserType failed to update"
       render :action => :edit
     end
