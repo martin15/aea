@@ -26,7 +26,7 @@ module ApplicationHelper
 
   def hide_roomate(user)
     return "" if user.room_type_id.nil?
-    return user.room_type.name.downcase == "double" ? "" : "hidden_app"
+    return user.room_type.name.downcase != RoomType.single_room ? "" : "hidden_app"
   end
 
   def active_side_menu(obj)

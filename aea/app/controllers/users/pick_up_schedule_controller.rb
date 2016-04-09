@@ -2,7 +2,7 @@ class Users::PickUpScheduleController < Users::ApplicationController
   before_filter :find_pick_up_schedule
 
   def index
-    @shuttle_buses = ShuttleBus.all
+    @shuttle_buses = ShuttleBus.order("pick_up_date, pick_up_time")
   end
 
   def edit

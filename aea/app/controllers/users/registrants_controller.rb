@@ -47,7 +47,7 @@ class Users::RegistrantsController < Users::ApplicationController
     @user = current_user
     @registrant.price = find_room_price
     room_type = RoomType.find_by_id(params[:user][:room_type_id])
-    params[:user][:roomate] = "" if room_type.name.downcase == "single"
+    params[:user][:roomate] = "" if room_type.name.downcase == RoomType.single_room
     if @registrant.update_attributes(user_params)
       flash[:notice] = 'Member was successfully updated.'
       redirect_to users_registrants_path

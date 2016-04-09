@@ -39,7 +39,7 @@ class UsersController < ApplicationController
     end
     
     @user.price = @room_type.price
-    params[:user][:roomate] = "" if @room_type.room_type.name.downcase == "single"
+    params[:user][:roomate] = "" if @room_type.room_type.name.downcase == RoomType.single_room
     if @user.update(user_params)
       if @user.payment_type == "bank_bca"
         #kirim email

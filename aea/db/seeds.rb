@@ -38,3 +38,5 @@ if user.nil?
                              :title => "Mr")
 end
 
+room_type = UserType.find_or_create_by(:name => "Single Room")
+room_type_2 = UserType.find_or_create_by(:name => "Twin Sharing Room")

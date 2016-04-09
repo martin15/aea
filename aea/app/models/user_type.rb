@@ -9,4 +9,8 @@ class UserType < ActiveRecord::Base
     self.where("permalink != 'representative-of-local-leaders'")
   end
 
+  def self.single_room
+    where("name like '%Single Room%'")
+  end
+
 end

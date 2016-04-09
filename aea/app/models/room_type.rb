@@ -22,4 +22,8 @@ class RoomType < ActiveRecord::Base
                                                 country_type = 'indonesia'").first
     return room_types_price.nil? ? 0 : room_types_price.price
   end
+
+  def self.single_room
+    where("name like '%Single Room%'")
+  end
 end
