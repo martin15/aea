@@ -56,7 +56,7 @@
                   <% checked = @user.payment_type.nil? ? 'paypal' : @user.payment_type %>
                   <div class="radio">
                     <label>
-                      <%= f.radio_button :payment_type, "on_the_spot", :checked => "on_the_spot" == checked %> On The Spot
+                      <%= f.radio_button :payment_type, "on_the_spot", :checked => true %> On The Spot
                     </label>
                   </div>
                 </div>

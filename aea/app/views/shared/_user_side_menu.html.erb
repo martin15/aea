@@ -11,10 +11,12 @@
     <%= link_to "Change Password", edit_user_path,
                 class: active_side_menu(["edit", "update_password"]) %>
   </div>
-  <div class="col-md-12 padding_t_b_5">
-    <%= link_to "Payment Confirmation", new_users_payment_confirmation_path,
-                 class: active_side_menu('payment_confirmations') %>
-  </div>
+  <% if current_user.is_indonesian? %>
+    <div class="col-md-12 padding_t_b_5">
+      <%= link_to "Payment Confirmation", new_users_payment_confirmation_path,
+                   class: active_side_menu('payment_confirmations') %>
+    </div>
+  <% end %>
   <div class="col-md-12 padding_t_b_5">
     <%= link_to "Pick Up Schedule", users_pick_up_schedule_path,
                 class: active_side_menu('pick_up_schedule') %>

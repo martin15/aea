@@ -25,7 +25,7 @@ module ApplicationHelper
   end
 
   def hide_roomate(user)
-    return "" if user.room_type_id.nil?
+    return "hidden_app" if user.room_type_id.nil?
     return user.room_type.name.downcase != RoomType.single_room ? "" : "hidden_app"
   end
 

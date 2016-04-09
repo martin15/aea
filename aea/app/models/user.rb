@@ -35,6 +35,10 @@ class User < ActiveRecord::Base
     self.email == "aeaga2016@gmail.com" || self.email == "martin.me15@yahoo.com"
   end
 
+  def is_indonesian?
+    self.country == Country.find_by_name("Indonesia")
+  end
+
   def payment_method_is_transfer_bank?
     self.payment_type == "bank_bca"
   end

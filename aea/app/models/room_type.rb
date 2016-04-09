@@ -24,6 +24,6 @@ class RoomType < ActiveRecord::Base
   end
 
   def self.single_room
-    where("name like '%Single Room%'")
+    where("name like '%Single Room%'").first
   end
 end

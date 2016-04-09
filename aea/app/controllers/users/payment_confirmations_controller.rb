@@ -1,4 +1,5 @@
 class Users::PaymentConfirmationsController < Users::ApplicationController
+  before_filter :is_indonesian
 
   def new
     @payment_confirmation = PaymentConfirmation.new()
@@ -23,5 +24,12 @@ class Users::PaymentConfirmationsController < Users::ApplicationController
     def payment_confirmation_params
       params.require(:payment_confirmation).permit(:payment_method, :sender_name, :amount,
                                                    :payment_date, :user_id )
+    end
+
+    def is_indonesian
+      unless current_user.is_indonesian?
+        flash[:error] = "You don't have authority to access this page"
+        redirect_to users_path
+      end
     end
 end
