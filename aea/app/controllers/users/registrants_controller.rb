@@ -25,6 +25,7 @@ class Users::RegistrantsController < Users::ApplicationController
     @registrant.team_leader = current_user
     @registrant.user_type = @user.user_type
     @registrant.skip_password_validation = true
+    @registrant.country = @user.country
     @registrant.price = find_room_price
     if @registrant.save
       flash[:notice] = 'Member was successfully create.'
