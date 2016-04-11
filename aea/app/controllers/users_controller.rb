@@ -41,12 +41,12 @@ class UsersController < ApplicationController
     @user.price = @room_type.price
     params[:user][:roomate] = "" if @room_type.room_type.name.downcase == RoomType.single_room
     if @user.update(user_params)
+      AfterRegistrationMailer.after_registration_for_user(@user, the_domain)
+      AfterRegistrationMailer.after_registration_for_admin(@user, the_domain)
       if @user.payment_type == "bank_bca"
-        #kirim email
         render "transfer_bank"
         return
       elsif @user.payment_type == "on_the_spot"
-        #kirim email
         render "on_the_spot"
         return
       end

@@ -43,8 +43,13 @@
                               <h2 style="margin-bottom: 30px;margin-top: 15px;">
                                 Confirmation Instructions
                               </h2>
-                              <p>Welcome <%= @email %>!</p>
-                              <p>You can confirm your account email through the link below:</p>
+                              <p>
+                                Thank you for signing up to the AEA GA Registration website,
+                                you are almost there, please follow the link below to compete
+                                the registration process to participate at the Asia Evangelical
+                                Alliance General Assembly and the Church in Mission Congress
+                                (Asia Congress on Ethical Leadership and Authentic Discipleship)
+                              </p>
                               <p>
                                 <%= link_to 'Confirm my account',
                                             confirmation_url(@resource, confirmation_token: @token) %>

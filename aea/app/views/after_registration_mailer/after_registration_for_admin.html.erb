@@ -31,32 +31,35 @@
                           </table>
                         </th>
                       </tr>
-                    </tbody>
-                  </table>
-                  <table class="row">
-                    <tbody>
-                      <tr>
-                        <th class="small-12 large-12 columns first">
-                          <table>
-                            <tr>
-                              <th>
-                                <h2>Payment Confirmation</h2>
-                                <p>
-                                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam at,
-                                  nihil quas harum mollitia dolores odio. Inventore delectus nihil
-                                  soluta quos, magni doloribus, voluptas aspernatur explicabo atque
-                                  perspiciatis possimus
-                                  voluptates.
-                                </p>
-                                <p><a href="#">Learn more</a></p>
-                              </th>
-                            </tr>
-                          </table>
-                        </th>
-                      </tr>
-                    </tbody>
-                  </table>
-                </td>
+                  </tbody>
+                </table>
+                <table class="row">
+                  <tbody>
+                    <tr>
+                      <th class="small-12 large-12 columns first">
+                        <table>
+                          <tr>
+                            <th>
+                              <h2 style="margin-bottom: 30px;margin-top: 15px;">
+                                Registration
+                              </h2>
+                              <p>
+                                Dear Admin
+                              </p>
+                              <p>
+                                There is a new registrant <br/>
+                                Name <%= @user.full_name %><br/>
+                                Email <%= @user.email %><br/>
+                                Country <%= @user.country.name %><br/>
+                              </p>
+                            </th>
+                          </tr>
+                        </table>
+                      </th>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
               </tr>
             </tbody>
           </table>

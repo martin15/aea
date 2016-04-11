@@ -63,7 +63,7 @@ class User < ActiveRecord::Base
     users_total = User.where("approved_at >= ? AND approved_at <= ?",
                        Date.today.at_beginning_of_month, Date.today.at_end_of_month).size
 
-    return "#{user_type}#{country_type}#{month}#{(users_total+1)}"
+    return "#{user_type}#{country_type}#{month}#{(users_total+1).to_s.rjust(3, '0')}"
   end
 
   protected
