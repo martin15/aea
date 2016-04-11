@@ -6,7 +6,11 @@
         <div class="box">
           <h2>On The Spot</h2>
           <p>
-            
+            Please upload a (scanned/photo) copy of your flight ticket to complete your registration process.<br />
+            Follow this <%= link_to "link", edit_users_ticket_path(current_user.ticket || 0) %> to upload
+          </p>
+          <p>
+            Thank you.
           </p>
         </div>
       </div>

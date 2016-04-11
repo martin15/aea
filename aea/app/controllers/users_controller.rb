@@ -41,8 +41,8 @@ class UsersController < ApplicationController
     @user.price = @room_type.price
     params[:user][:roomate] = "" if @room_type.room_type.name.downcase == RoomType.single_room
     if @user.update(user_params)
-      AfterRegistrationMailer.after_registration_for_user(@user, the_domain)
-      AfterRegistrationMailer.after_registration_for_admin(@user, the_domain)
+      AfterRegistrationMailer.after_registration_for_user(@user, the_domain).deliver_now
+      AfterRegistrationMailer.after_registration_for_admin(@user, the_domain).deliver_now
       if @user.payment_type == "bank_bca"
         render "transfer_bank"
         return

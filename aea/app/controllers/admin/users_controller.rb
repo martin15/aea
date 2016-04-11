@@ -48,6 +48,8 @@ class Admin::UsersController < Admin::ApplicationController
     @user.registration_number = @user.get_registration_number
     @user.approved_at = DateTime.now.to_s(:db)
     if @user.save
+      ApproveRegistrationMailer.approve_registration_for_user(@user, the_domain).deliver_now
+      ApproveRegistrationMailer.approve_registration_for_admin(@user, the_domain).deliver_now
       flash[:notice] = 'User was successfully Confirmed.'
       redirect_to admin_users_path
     else
