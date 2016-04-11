@@ -21,8 +21,8 @@ class UsersController < ApplicationController
   def register_event
     @user = current_user
     user_id = @user.user_type_id.blank? ? UserType.first.id : @user.user_type_id
-    @country_type = @user.country.name.downcase == "indonesia" ? @user.country.permalink :
-                                                                 @user.country.category_type
+    @country = @user.country.name.downcase
+    @country_type = @user.country.category_type
     @room_types = RoomTypesUserType.where("user_type_id = #{user_id} and
                                            country_type = '#{@country_type}'")
   end
