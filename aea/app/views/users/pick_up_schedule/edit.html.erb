@@ -14,7 +14,6 @@
                        html: {  class: "form-horizontal", :method => :put } ) do |f| %>
             <div class="row box margin_b_30">
               <% @need_shuttle_bus = @user.pick_up_schedule.nil? ? false : true  %>
-              <%= @need_shuttle_bus %>
               <div class="form-group">
                 <div class="col-sm-12">
                   <label>
