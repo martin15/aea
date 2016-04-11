@@ -43,6 +43,29 @@ class User < ActiveRecord::Base
     self.payment_type == "bank_bca"
   end
 
+  def get_registration_number
+    user_type = ''
+    case self.user_type.name
+      when 'National Alliance'
+        user_type = "NA"
+      when 'Leader and Member of AEA Commissions'
+        user_type = "AC"
+      when 'AEA Executive Team Members'
+        user_type = "AE"
+      when 'Partners & Observers'
+        user_type = "PO"
+      when 'Representative of Local Leaders'
+        user_type = "LL"
+    end
+
+    country_type = self.country.category_type == "Developed" ? "M" : "B"
+    month = Date.today.try(:strftime, "%m")
+    users_total = User.where("approved_at >= ? AND approved_at <= ?",
+                       Date.today.at_beginning_of_month, Date.today.at_end_of_month).size
+
+    return "#{user_type}#{country_type}#{month}#{(users_total+1)}"
+  end
+
   protected
 
   def password_required?

@@ -10,6 +10,13 @@ class RegistrationsController < Devise::RegistrationsController
       users_path(resource)
     end
 
+    def after_sign_up_path_for(resource)
+      flash[:notice] = "You have been nominated as delegate/participant for the Asia Evangelical 
+                        alliance General assembly – Church in Mission Congress,
+                        please signup and register, atau please sign up and confirm your participation?"
+      root_path
+    end
+
   private
     def check_captcha
       if verify_recaptcha

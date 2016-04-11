@@ -45,6 +45,7 @@ class Admin::UsersController < Admin::ApplicationController
 
   def save_confirmed
     @user.status = "Approved"
+    @user.registration_number = @user.get_registration_number
     @user.approved_at = DateTime.now.to_s(:db)
     if @user.save
       flash[:notice] = 'User was successfully Confirmed.'
