@@ -15,6 +15,19 @@
   </div>
 <% end %>
 <div class="form-group">
+  <%= f.label :shuttle_bus_type, "Shuttle Bus Type *", :class => "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+    <div class="radio">
+      <label>
+        <%= f.radio_button :shuttle_bus_type, "arriving", :checked => true %> Arriving
+      </label>&nbsp;&nbsp;&nbsp;&nbsp;
+      <label>
+        <%= f.radio_button :shuttle_bus_type, "departing" %> Departing
+      </label>
+    </div>
+  </div>
+</div>
+<div class="form-group">
   <%= f.label :name, "Name *", :class => "col-sm-2 control-label" %>
   <div class="col-sm-10">
     <%= f.text_field :name, :class => "form-control" %>

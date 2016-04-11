@@ -11,6 +11,7 @@
           <th>#</th>
           <th>Name</th>
           <th>Time</th>
+          <th>Type</th>
           <th>Airport Name</th>
           <th>&nbsp;</th>
         </tr>
@@ -20,10 +21,8 @@
           <tr>
             <th scope="row"><%= @no+x+1 %></th>
             <td><%= shuttle_bus.name %></td>
-            <td>
-              <%= shuttle_bus.try(:pick_up_date).try(:strftime, "%Y %b %d") %>&nbsp;-&nbsp;
-              <%= shuttle_bus.try(:pick_up_time).try(:strftime, "%H:%M") %>
-            </td>
+            <td> <%= shuttle_bus.try(:pick_up_time).try(:strftime, "%H:%M") %> </td>
+            <td><%= shuttle_bus.shuttle_bus_type %></td>
             <td><%= shuttle_bus.airport_name %></td>
             <td>
               <%= link_to "Edit", edit_admin_shuttle_bus_path(shuttle_bus), :class => "btn btn-success" %>

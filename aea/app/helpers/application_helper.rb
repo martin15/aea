@@ -21,16 +21,29 @@ module ApplicationHelper
   end
 
   def list_title
-    [["Mr", "Mr"],["Mrs", "Mrs"],["Miss", "Miss"],["Pastor", "Pastor"],["Rev", "Rev"]]
+    [["Mr", "Mr"],["Mrs", "Mrs"],["Miss", "Miss"],["Dr", "Dr"],["Pastor/Rev", "Pastor/Rev"]]
   end
 
   def airport_list
     [["Jakarta - Soekarno Hatta", "Jakarta - Soekarno Hatta"],["Bandung - Husein Sastranegara", "Bandung - Husein Sastranegara"]]
   end
 
+  def must_fill_text
+    str = "<div class='form-group'> <div class='col-sm-12'>
+            <span class='must-fill'>* You must fill the field</span>
+              </div>
+            </div>"
+  end
+
   def hide_roomate(user)
     return "hidden_app" if user.room_type_id.nil?
     return user.room_type.name.downcase != RoomType.single_room ? "" : "hidden_app"
+  end
+
+  def hide_pick_up_schedule(need_shuttle_bus)
+    puts "------"
+    puts need_shuttle_bus
+    return need_shuttle_bus == true ? "" : "hidden_app"
   end
 
   def active_side_menu(obj)

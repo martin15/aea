@@ -1,6 +1,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap.min
+//= require bootstrap-datepicker
 
 function update_price() {
     user_type = $('input[name="user[user_type_id]"]:checked').val();

@@ -1039,3 +1039,14 @@ a.active-menu{
 .medium-font{
   font-size: 18px;
 }
+
+.must-fill{
+  font-size: 12px;
+  font-style: italic;
+  font-weight: bold;
+  color: red;
+}
+
+.small-font{
+  font-size: 12px;
+}

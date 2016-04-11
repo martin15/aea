@@ -43,7 +43,8 @@ class Admin::ShuttleBusesController < Admin::ApplicationController
   private
 
     def shuttle_bus_params
-      params.require(:shuttle_bus).permit(:name, :pick_up_date, :pick_up_time, :airport_name, :note)
+      params.require(:shuttle_bus).permit(:name, :pick_up_date, :pick_up_time, :airport_name, :note,
+                                          :shuttle_bus_type )
     end
 
     def find_shuttle_bus

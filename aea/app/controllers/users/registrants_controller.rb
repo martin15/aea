@@ -92,7 +92,7 @@ class Users::RegistrantsController < Users::ApplicationController
       # NOTE: Using `strong_parameters` gem
       params.require(:user).permit(:first_name, :last_name, :email, :user_type_id,
                                    :age, :title, :passport_number, :room_type_id,
-                                   :price, :gender, :country_id, :note, :roomate )
+                                   :price, :gender, :country_id, :note, :roomate, :phone )
     end
 
     def find_registrant

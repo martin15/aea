@@ -73,6 +73,6 @@ class UsersController < ApplicationController
     # NOTE: Using `strong_parameters` gem
     params.require(:user).permit(:password, :password_confirmation, :user_type_id, :room_type_id,
                                  :age, :title, :passport_number, :payment_type, :roomate, :price,
-                                 :note )
+                                 :note, :phone )
   end
 end

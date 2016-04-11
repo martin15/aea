@@ -4,7 +4,7 @@
                 class: active_side_menu("registrations") %>
   </div>
   <div class="col-md-12 padding_t_b_5">
-    <%= link_to "Register Event", register_event_user_path,
+    <%= link_to "Registration", register_event_user_path,
                 class: active_side_menu(["register_event", "save_register_event"]) %>
   </div>
   <div class="col-md-12 padding_t_b_5 active">
@@ -23,7 +23,7 @@
   </div>
   <% if current_user.is_team_lead? %>
     <div class="col-md-12 padding_t_b_5">
-      <%= link_to "Register Member", users_registrants_path, 
+      <%= link_to "Register National Alliance Delegates", users_registrants_path,
                   class: active_side_menu("registrants") %>
     </div>
   <% end %>

@@ -12,23 +12,23 @@
       <%= render :partial => "/shared/user_side_menu" %>
       <div class="col-sm-9 content">
         <div class="box">
-          <h2>Change your passwordssss</h2>
+          <h2>Change your password</h2>
           <%= form_for(@user, :url => { :action => "update_password" },
                        html: {  class: "form-horizontal" } ) do |f| %>
             <div class="form-group">
-              <%= f.label :current_password, "Password *", :class => "col-sm-12 control-label" %>
+              <%= f.label :current_password, "Current Password *", :class => "col-sm-12 control-label" %>
               <div class="col-sm-12">
                 <%= f.password_field :current_password, :autocomplete => "off", :class => "form-control" %>
               </div>
             </div>
             <div class="form-group">
-              <%= f.label :password, "Password *", :class => "col-sm-12 control-label" %>
+              <%= f.label :password, "New Password *", :class => "col-sm-12 control-label" %>
               <div class="col-sm-12">
                 <%= f.password_field :password, :autocomplete => "off", :class => "form-control" %>
               </div>
             </div>
             <div class="form-group">
-              <%= f.label :password_confirmation, "Confirmation Password *", :class => "col-sm-12 control-label" %>
+              <%= f.label :password_confirmation, "Confirmation New Password *", :class => "col-sm-12 control-label" %>
               <div class="col-sm-12">
                 <%= f.password_field :password_confirmation, :autocomplete => "off", :class => "form-control" %>
               </div>
@@ -38,6 +38,7 @@
                 <%= f.submit "Update Password", :class => "btn btn-success" %>
               </div>
             </div>
+            <%= raw(must_fill_text) %>
           <% end %>
         </div>
       </div>

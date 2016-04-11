@@ -24,7 +24,7 @@ country_10 = Country.find_or_create_by( :name => 'Indonesia', :category_type => 
 user_type_1 = UserType.find_or_create_by( :name => 'National Alliance' )
 user_type_2 = UserType.find_or_create_by( :name => 'Leader and Member of AEA Commissions' )
 user_type_3 = UserType.find_or_create_by( :name => 'AEA Executive Team Members' )
-user_type_4 = UserType.find_or_create_by( :name => 'Partner & Observers' )
+user_type_4 = UserType.find_or_create_by( :name => 'Partners & Observers' )
 user_type_5 = UserType.find_or_create_by( :name => 'Representative of Local Leaders' )
 
 user  = User.find_by_email("aeaga2016@gmail.com")

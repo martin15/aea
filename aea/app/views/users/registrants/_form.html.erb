@@ -38,6 +38,12 @@
   </div>
 </div>
 <div class="form-group">
+  <%= f.label :phone, raw("Cell/Mobile Number <span class=small-font>(Country Code + Phone Number, eg : +6285612345678)</span>"), :class => "col-sm-12 control-label" %>
+  <div class="col-sm-12">
+    <%= f.text_field :phone, :class => "form-control" %>
+  </div>
+</div>
+<div class="form-group">
   <%= f.label :passport_number, "Passport Number *", :class => "col-sm-12 control-label" %>
   <div class="col-sm-12">
     <%= f.text_field :passport_number, :class => "form-control" %>
@@ -47,13 +53,6 @@
   <%= f.label :age, "Age *", :class => "col-sm-12 control-label" %>
   <div class="col-sm-12">
     <%= f.text_field :age, :class => "form-control" %>
-  </div>
-</div>
-<div class="form-group">
-  <%= f.label :country_id, "Country *", :class => "col-sm-12 control-label" %>
-  <div class="col-sm-12">
-    <%= f.select :country_id, Country.list, {},:class => "form-control",
-                 :onchange => 'update_price_by_country(this)' %>
   </div>
 </div>
 <div class="form-group">

@@ -57,6 +57,12 @@
               </div>
             </div>
             <div class="form-group">
+              <%= f.label :phone,  raw("Cell/Mobile Number <span class=small-font>(Country Code + Phone Number, eg : +6285612345678)</span>"), :class => "col-sm-12 control-label" %>
+              <div class="col-sm-12">
+                <%= f.text_field :phone, :class => "form-control" %>
+              </div>
+            </div>
+            <div class="form-group">
               <%= f.label :passport_number, "Passport Number *", :class => "col-sm-12 control-label" %>
               <div class="col-sm-12">
                 <%= f.text_field :passport_number, :class => "form-control" %>
@@ -67,6 +73,10 @@
               <div class="col-sm-12">
                 <%= f.text_field :age, :class => "form-control" %>
               </div>
+            </div>
+            <div class="form-group">
+              <%= f.label :country_id, "Country of Citizenship", :class => "col-sm-12 control-label" %>
+              <div class="col-sm-12"><%= @user.try(:country).try(:name) %></div>
             </div>
             <%#*<div class="form-group">%>
               <%#*<div class="col-sm-12">%>
@@ -107,7 +117,7 @@
               <div class="col-sm-12">
                 <%= f.submit "Update", :class => "btn btn-success" %>
               </div>
-            </div>
+            </div><%= raw(must_fill_text) %>
           <% end %>
 
           <%#= link_to "Back", :back %>
