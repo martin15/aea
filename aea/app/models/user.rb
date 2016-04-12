@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  attr_accessor :skip_password_validation
+  attr_accessor :skip_password_validation, :no_team_lead
 
   has_one :pick_up_schedule
   has_one :ticket
@@ -19,8 +19,8 @@ class User < ActiveRecord::Base
 
   validates :first_name, :presence => true
   validates :last_name, :presence => true
-  validates :passport_number, :presence => true
-  validates :age, :presence => true, :numericality => true
+  validates :passport_number, :presence => {unless: :no_team_lead}
+  validates :age, :presence => {unless: :no_team_lead}, :numericality => {unless: :no_team_lead}
 
   def full_name
     "#{self.try(:title)} #{self.try(:first_name)} #{self.try(:last_name)}"

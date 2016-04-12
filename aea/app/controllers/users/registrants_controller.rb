@@ -26,6 +26,7 @@ class Users::RegistrantsController < Users::ApplicationController
     @registrant.user_type = @user.user_type
     @registrant.skip_password_validation = true
     @registrant.country = @user.country
+    @registrant.no_team_lead = true
     @registrant.price = find_room_price
     if @registrant.save
       flash[:notice] = 'Member was successfully create.'
@@ -46,6 +47,7 @@ class Users::RegistrantsController < Users::ApplicationController
 
   def update
     @user = current_user
+    @registrant.no_team_lead = true
     @registrant.price = find_room_price
     room_type = RoomType.find_by_id(params[:user][:room_type_id])
     params[:user][:roomate] = "" if room_type.name.downcase == RoomType.single_room

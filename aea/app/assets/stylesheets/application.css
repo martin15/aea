@@ -1050,3 +1050,7 @@ a.active-menu{
 .small-font{
   font-size: 12px;
 }
+
+.field_with_errors input{
+  border-color: red!important
+}
