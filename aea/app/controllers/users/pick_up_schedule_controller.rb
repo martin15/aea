@@ -6,7 +6,7 @@ class Users::PickUpScheduleController < Users::ApplicationController
   end
 
   def edit
-    @shuttle_buses = ShuttleBus.group(:shuttle_bus_type).group_by{ |h| h.shuttle_bus_type }
+    @shuttle_buses = ShuttleBus.all.group_by{ |h| h.shuttle_bus_type }
     @arriving_date = ShuttleBus.find_by_shuttle_bus_type("arriving").pick_up_date
     @departing_date = ShuttleBus.find_by_shuttle_bus_type("departing").pick_up_date
     @user = current_user
