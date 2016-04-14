@@ -33,23 +33,26 @@
 
         <div class="collapse navbar-collapse navbar-right">
           <ul class="nav navbar-nav">
+            <li class="scroll <%= admin_active_menu('countries') %>">
+              <%= link_to "Countries", admin_countries_path  %>
+            </li>
+            <li class="scroll <%= admin_active_menu('payment_confirmation') %>">
+              <%= link_to "Payment Confirmation", admin_payment_confirmations_path  %>
+            </li>
+            <li class="scroll <%= admin_active_menu('pick_up_schedules') %>">
+              <%= link_to "Pick Up Schedule", admin_pick_up_schedules_path  %>
+            </li>
+            <li class="scroll <%= admin_active_menu('room_types') %>">
+              <%= link_to "Room Type", admin_room_types_path  %>
+            </li>
+            <li class="scroll <%= admin_active_menu('shuttle_buses') %>">
+              <%= link_to "Shuttle Buses", admin_shuttle_buses_path  %>
+            </li>
             <li class="scroll <%= admin_active_menu('users') %>">
               <%= link_to "User", admin_users_path  %>
             </li>
             <li class="scroll <%= admin_active_menu('user_types') %>">
               <%= link_to "User Type", admin_user_types_path  %>
-            </li>
-            <li class="scroll <%= admin_active_menu('room_types') %>">
-              <%= link_to "Room Type", admin_room_types_path  %>
-            </li>
-            <li class="scroll <%= admin_active_menu('countries') %>">
-              <%= link_to "Countries", admin_countries_path  %>
-            </li>
-            <li class="scroll <%= admin_active_menu('shuttle_buses') %>">
-              <%= link_to "Shuttle Buses", admin_shuttle_buses_path  %>
-            </li>
-            <li class="scroll <%= admin_active_menu('pick_up_schedules') %>">
-              <%= link_to "Pick Up Schedule", admin_pick_up_schedules_path  %>
             </li>
           </ul>
         </div>

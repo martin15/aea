@@ -2,7 +2,7 @@ class Admin::UsersController < Admin::ApplicationController
   before_filter :find_user, :only => [:edit, :update, :destroy, :delete, :confirm, :save_confirmed]
 
   def index
-    @users = User.all.page(params[:page]).per(20)
+    @users = User.not_admin.page(params[:page]).per(20)
     @no = paging(10)
   end
 

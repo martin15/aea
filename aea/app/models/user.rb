@@ -35,6 +35,10 @@ class User < ActiveRecord::Base
     self.email == "aeaga2016@gmail.com" || self.email == "martin.me15@yahoo.com"
   end
 
+  def self.not_admin
+    self.where("email != 'aeaga2016@gmail.com' AND email != 'martin.me15@yahoo.com'")
+  end
+
   def is_indonesian?
     self.country == Country.find_by_name("Indonesia")
   end

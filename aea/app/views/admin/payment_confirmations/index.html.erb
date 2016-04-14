@@ -1,0 +1,41 @@
+<div class="col-md-12 content">
+  <h2>Payment Confirmations</h2>
+  <div class="col-md-12">
+    <p><%#= raw msg_flash(flash) %></p>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Sender Name</th>
+          <th>Email</th>
+          <th>Amount</th>
+          <th>Payment Date</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @payment_confirmations.each_with_index do |payment_confirmation, x| %>
+          <tr>
+            <td scope="row"><%= @no+x+1 %></td>
+            <td><%= payment_confirmation.sender_name %></td>
+            <td><%= payment_confirmation.try(:user).try(:email) %></td>
+            <td><%= payment_confirmation.amount %></td>
+            <td><%= payment_confirmation.try(:payment_date).try(:strftime, "%Y %b %d") %></td>
+            <td>
+              <% if payment_confirmation.try(:user).status != 'Approved' %>
+                <%= link_to "Confirm", admin_payment_confirmations_user_confirm_path(payment_confirmation),
+                            :class => "btn btn-default" %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <div class="admin-row">
+      <%= paginate @payment_confirmations, :link_separator => " | ",
+                                 :previous_label => "&laquo; previous",
+                                 :next_label => "next &raquo;" %>
+
+    </div>
+  </div>
+</div>

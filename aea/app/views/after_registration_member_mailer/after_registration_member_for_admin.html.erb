@@ -23,7 +23,7 @@
                             <tr>
                               <th>
                                 <center data-parsed="">
-                                  <%= image_tag("http://aeaga2016.com/assets/logo.jpg", alt: "AEA 2016 Logo") %>
+                                  <%= image_tag("http://#{@domain}/assets/logo.jpg", alt: "AEA 2016 Logo") %>
                                 </center>
                               </th>
                               <th class="expander"></th>
@@ -41,18 +41,16 @@
                           <tr>
                             <th>
                               <h2 style="margin-bottom: 30px;margin-top: 15px;">
-                                Confirmation Instructions
+                                Registration
                               </h2>
                               <p>
-                                Thank you for signing up to the AEA GA Registration website,
-                                you are almost there, please follow the link below to compete
-                                the registration process to participate at the Asia Evangelical
-                                Alliance General Assembly and the Church in Mission Congress
-                                (Asia Congress on Ethical Leadership and Authentic Discipleship)
+                                Dear Admin
                               </p>
                               <p>
-                                <%= link_to 'Confirm my account',
-                                            confirmation_url(@resource, confirmation_token: @token) %>
+                                There is a new registrant <br/>
+                                Name <%= @user.full_name %><br/>
+                                Email <%= @user.email %><br/>
+                                Country <%= @user.country.name %><br/>
                               </p>
                             </th>
                           </tr>

@@ -27,6 +27,9 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :countries
+    resources :payment_confirmations, :only => [:index]
+    get "payment_confirmations/:id/confirm" => "payment_confirmations#confirm", :as => "payment_confirmations_user_confirm"
+    post "payment_confirmations/:id/save_confirmed" => "payment_confirmations#save_confirmed", :as => "payment_confirmations_save_user_confirmed"
     get "pick_up_schedules/download_schedule_report" => "pick_up_schedules#download_schedule_report", :as => "download_schedule_report"
     resources :pick_up_schedules
     resources :room_types
