@@ -29,6 +29,8 @@ class Users::RegistrantsController < Users::ApplicationController
     @registrant.no_team_lead = true
     @registrant.price = find_room_price
     if @registrant.save
+      AfterRegistrationMemberMailer.after_registration_member_for_user(@registrant, the_domain).deliver_now
+      AfterRegistrationMemberMailer.after_registration_member_for_admin(@registrant, the_domain).deliver_now
       flash[:notice] = 'Member was successfully create.'
       redirect_to users_registrants_path
     else
