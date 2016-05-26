@@ -1,0 +1,65 @@
+<div class="col-md-12 content">
+  <h2><%= @country.name unless @country.nil? %> Users</h2>
+  <div class="col-md-12">
+    <p><%#= raw msg_flash(flash) %></p>
+    <p class="col-md-10">
+      <%= link_to "Add new user", new_admin_user_path %>
+      <span style="float:right">
+      </span>
+    </p>
+    <div class="dropdown col-md-2 margin_b_30" style="float:right">
+      <button class="btn btn-default dropdown-toggle user_order_by" type="button" id="dropdownMenu1"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        Sort By
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+        <li><%= link_to "Pending User", admin_users_order_by_path("Pending") %></li>
+        <li><%= link_to "Approved User", admin_users_order_by_path("Approved") %></li>
+      </ul>
+    </div>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th><%= sortable("first_name", "Name") %></th>
+          <th><%= sortable("email", "Email") %></th>
+          <th>User Type</th>
+          <th>Country</th>
+          <th>Status</th>
+          <th>Approve At</th>
+          <th>Reg Number</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each_with_index do |user, x| %>
+          <tr>
+            <th scope="row"><%= @no+x+1 %></th>
+            <td><%= user.full_name %></td>
+            <td><%= user.email %></td>
+            <td><%= user.try(:user_type).try(:name) %><%= " - #{user.team_leader.try(:full_name)}" unless user.team_leader.nil?  %></td>
+            <td><%= link_to user.try(:country).try(:name), admin_users_by_country_path(user.try(:country).try(:permalink)) %></td>
+            <td><%= user.status %></td>
+            <td><%= user.approved_at.try(:strftime, "%d %b %Y - %H:%M") %></td>
+            <td><%= user.registration_number %></td>
+            <td>
+              <% if user.status != 'Approved' %>
+                <%= link_to "Confirm", admin_user_confirm_path(user), :class => "btn btn-default" %>
+              <% end %>
+              <%= link_to "Edit", edit_admin_user_path(user), :class => "btn btn-success" %>
+              <%= link_to "Delete", admin_user_path(user.id ), :method => :delete,
+                                    data: {:confirm => "Are you sure?"}, :class => "btn btn-warning" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <div class="admin-row">
+      <%= paginate @users, :link_separator => " | ",
+                                 :previous_label => "&laquo; previous",
+                                 :next_label => "next &raquo;" %>
+
+    </div>
+  </div>
+</div>
