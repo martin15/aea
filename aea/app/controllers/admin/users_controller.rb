@@ -2,8 +2,30 @@ class Admin::UsersController < Admin::ApplicationController
   before_filter :find_user, :only => [:edit, :update, :destroy, :delete, :confirm, :save_confirmed]
 
   def index
-    @users = User.not_admin.page(params[:page]).per(20)
-    @no = paging(10)
+    if params[:country_permalink].nil?
+      @users = User.not_admin.order("#{sort_column} #{sort_direction}").page(params[:page]).per(20)
+      @no = paging(20)
+    else
+      @country = Country.find_by_permalink(params[:country_permalink])
+      if @country.nil?
+        flash[:notice] = "Cannot find country with name '#{params[:country_permalink]}'"
+        redirect_to admin_users_path
+        return
+      end
+      @users = @country.users.order("#{sort_column} #{sort_direction}").page(params[:page]).per(20)
+      @no = paging(20)
+    end
+  end
+
+  def order_by
+    if params[:order_by].nil?
+      @users = User.not_admin.order("#{sort_column} #{sort_direction}").page(params[:page]).per(20)
+      @no = paging(20)
+    else
+      @users = User.where("status = '#{params[:order_by]}'").
+                    order("#{sort_column} #{sort_direction}").page(params[:page]).per(20)
+      @no = paging(20)
+    end
   end
 
   def new
@@ -72,5 +94,13 @@ class Admin::UsersController < Admin::ApplicationController
         flash[:notice] = "Cannot find the User with id '#{params[:id]}'"
         redirect_to admin_users_path
      end
+    end
+
+    def sort_column
+      params[:sort] || "first_name"
+    end
+
+    def sort_direction
+      params[:direction] || "asc"
     end
 end
