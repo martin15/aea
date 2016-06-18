@@ -39,6 +39,14 @@ class User < ActiveRecord::Base
     self.where("email != 'aeaga2016@gmail.com' AND email != 'martin.me15@yahoo.com'")
   end
 
+  def self.active_user
+    self.where("confirmed_at is not null")
+  end
+
+  def self.inactive_user
+    self.where("confirmed_at is null")
+  end
+
   def is_indonesian?
     self.country == Country.find_by_name("Indonesia")
   end

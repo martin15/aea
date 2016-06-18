@@ -3,7 +3,11 @@ class Admin::UsersController < Admin::ApplicationController
 
   def index
     if params[:country_permalink].nil?
-      @users = User.not_admin.order("#{sort_column} #{sort_direction}").page(params[:page]).per(20)
+      @users = User.not_admin
+      @users = @users.inactive_user  if params[:type] == 'inactive'
+      @users = @users.active_user  if params[:type] == 'active'
+
+      @users = @users.order("#{sort_column} #{sort_direction}").page(params[:page]).per(20)
       @no = paging(20)
     else
       @country = Country.find_by_permalink(params[:country_permalink])

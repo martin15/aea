@@ -3,7 +3,9 @@
   <div class="col-md-12">
     <p><%#= raw msg_flash(flash) %></p>
     <p class="col-md-10">
-      <%= link_to "Add new user", new_admin_user_path %>
+      <%= link_to "Add new user", new_admin_user_path %>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+      <%= link_to "List Active user", :type => 'active' %>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+      <%= link_to "List inactive user", :type => 'inactive' %>
       <span style="float:right">
       </span>
     </p>
@@ -22,8 +24,8 @@
       <thead>
         <tr>
           <th>#</th>
-          <th><%= sortable("first_name", "Name") %></th>
-          <th><%= sortable("email", "Email") %></th>
+          <th><%= sortable("first_name", "Name", params[:type]) %></th>
+          <th><%= sortable("email", "Email", params[:type]) %></th>
           <th>User Type</th>
           <th>Country</th>
           <th>Status</th>

@@ -60,10 +60,14 @@ module ApplicationHelper
     return 'active' if controller_name == obj
   end
 
-  def sortable(column, title=nil)
+  def sortable(column, title=nil, type=nil)
     title ||= column.titleize
     direction = (column == params[:sort] && params[:direction] == "asc") ? "desc" : "asc"
-    link_to(title, :sort => column, :direction => direction)
+    if type.nil?
+      link_to(title, :sort => column, :direction => direction)
+    else
+      link_to(title, :sort => column, :direction => direction, :type => type)
+    end
   end
 
 end
