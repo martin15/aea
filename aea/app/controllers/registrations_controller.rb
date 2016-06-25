@@ -18,6 +18,10 @@ class RegistrationsController < Devise::RegistrationsController
   private
     def check_captcha
       if verify_recaptcha
+        ind = Country.find_by_name("Indonesia")
+        if sign_up_params[:country_id].to_i == ind.id.to_i
+          params[:user][:passport_number] = "-"
+        end
         true
       else
         self.resource = resource_class.new sign_up_params

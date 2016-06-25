@@ -48,7 +48,7 @@
               </div>
             </div>
             <div class="form-group">
-              <%= f.label :passport_number, "Passport Number *", :class => "col-sm-12 control-label" %>
+              <%= f.label :passport_number, raw("Passport Number * <span class=small-font>Leave it blank if you Indonesian</span>"), :class => "col-sm-12 control-label" %>
               <div class="col-sm-12">
                 <%= f.text_field :passport_number, :class => "form-control" %>
               </div>

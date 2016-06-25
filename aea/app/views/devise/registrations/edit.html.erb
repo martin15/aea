@@ -62,12 +62,16 @@
                 <%= f.text_field :phone, :class => "form-control" %>
               </div>
             </div>
-            <div class="form-group">
-              <%= f.label :passport_number, "Passport Number *", :class => "col-sm-12 control-label" %>
-              <div class="col-sm-12">
-                <%= f.text_field :passport_number, :class => "form-control" %>
+            <% if @user.country.name == "Indonesia" %>
+              <%= hidden_field_tag "user[passport_number]", "-"  %>
+            <% else %>
+              <div class="form-group">
+                <%= f.label :passport_number, "Passport Number *", :class => "col-sm-12 control-label" %>
+                <div class="col-sm-12">
+                  <%= f.text_field :passport_number, :class => "form-control" %>
+                </div>
               </div>
-            </div>
+            <% end %>
             <div class="form-group">
               <%= f.label :age, "Age *", :class => "col-sm-12 control-label" %>
               <div class="col-sm-12">
