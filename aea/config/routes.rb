@@ -37,6 +37,7 @@ Rails.application.routes.draw do
     get "users/:country_permalink/list" => "users#index", :as => "users_by_country"
     get "users/order_by/:order_by" => "users#order_by", :as => "users_order_by"
     get "users/:id/confirm" => "users#confirm", :as => "user_confirm"
+    get "users/user_rooms" => "users#user_rooms", :as => "user_rooms"
     post "users/:id/save_confirmed" => "users#save_confirmed", :as => "save_user_confirmed"
     resources :users
     resources :user_types

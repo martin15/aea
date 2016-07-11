@@ -7,7 +7,8 @@ class Admin::UsersController < Admin::ApplicationController
       @users = @users.inactive_user  if params[:type] == 'inactive'
       @users = @users.active_user  if params[:type] == 'active'
 
-      @users = @users.order("#{sort_column} #{sort_direction}").page(params[:page]).per(20)
+      @users = @users.includes([:country, :room_type, :user_type]).
+                      order("#{sort_column} #{sort_direction}").page(params[:page]).per(20)
       @no = paging(20)
     else
       @country = Country.find_by_permalink(params[:country_permalink])
@@ -16,9 +17,22 @@ class Admin::UsersController < Admin::ApplicationController
         redirect_to admin_users_path
         return
       end
-      @users = @country.users.order("#{sort_column} #{sort_direction}").page(params[:page]).per(20)
+      @users = @country.users.includes([:country, :room_type, :user_type]).
+                              order("#{sort_column} #{sort_direction}").page(params[:page]).per(20)
       @no = paging(20)
     end
+  end
+
+  def user_rooms
+    @country = Country.find_by_permalink(params[:country_permalink])
+    if @country.nil?
+      flash[:notice] = "Cannot find country with name '#{params[:country_permalink]}'" unless params[:country_permalink].nil?
+      @users = User.includes([:country, :room_type, :user_type]).
+                    order("#{sort_column} #{sort_direction}").page(params[:page]).per(20)
+    else
+      @users = @country.users.order("#{sort_column} #{sort_direction}").page(params[:page]).per(20)
+    end
+    @no = paging(20)
   end
 
   def order_by

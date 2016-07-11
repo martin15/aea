@@ -12,6 +12,11 @@ class Users::TicketsController < Users::ApplicationController
     @ticket = Ticket.where("id  = #{params[:id]} AND user_id = #{@user.id}").first
     @ticket = Ticket.new() if @ticket.nil?
     @ticket.user = @user
+    if params[:ticket].blank?
+      flash[:error] = "Ticket Image cannot be blank"
+      redirect_to edit_users_ticket_path(0)
+      return
+    end
     if @ticket.update_attributes(ticket_params)
       # kirim email ke admin
       flash[:notice] = 'Ticket successfully upload.'

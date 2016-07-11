@@ -66,6 +66,7 @@
                                       :value => @pick_up_schedule.try(:arriving_time).try(:strftime, "%H:%M"),
                                       :class => "form-control arriving-time" %>
                   </div>
+                  <div class="col-sm-12">e.g 08:20 or 23:55</div>
                 </div>
                 <div class="form-group">
                   <%= f.label :arriving_flight_number, "Flight No *", :class => "col-sm-12 control-label" %>
@@ -97,6 +98,7 @@
                                      :value => @pick_up_schedule.try(:departing_time).try(:strftime, "%H:%M"),
                                      :class => "form-control departing-time" %>
                   </div>
+                  <div class="col-sm-12">e.g 08:20 or 23:55</div>
                 </div>
                 <div class="form-group">
                   <%= f.label :departing_flight_number, "Flight No *", :class => "col-sm-12 control-label" %>
@@ -120,6 +122,7 @@
             </div>
           <% end %>
         </div>
+
         <div class="row box <%= hide_pick_up_schedule(@need_shuttle_bus) %>" id ="shuttle_buses_information">
           <h2>Shuttle Buses Information</h2><br />
           <% @shuttle_buses.each do |shuttle_bus_type, shuttle_bus_list| %>
