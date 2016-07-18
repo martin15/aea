@@ -34,10 +34,12 @@ Rails.application.routes.draw do
     resources :pick_up_schedules
     resources :room_types
     resources :shuttle_buses
+    get "shuttle_buses/:id/export_as_xls" => "shuttle_buses#export_as_xls", :as => "shuttle_bus_export_as_xls"
     get "users/:country_permalink/list" => "users#index", :as => "users_by_country"
     get "users/order_by/:order_by" => "users#order_by", :as => "users_order_by"
     get "users/:id/confirm" => "users#confirm", :as => "user_confirm"
     get "users/user_rooms" => "users#user_rooms", :as => "user_rooms"
+    get "users/user_rooms/:room_type" => "users#user_rooms", :as => "user_rooms_by_type"
     post "users/:id/save_confirmed" => "users#save_confirmed", :as => "save_user_confirmed"
     resources :users
     resources :user_types

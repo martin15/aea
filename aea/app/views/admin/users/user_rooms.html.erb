@@ -1,5 +1,5 @@
 <div class="col-md-12 content">
-  <h2><%= @country.name unless @country.nil? %> Users</h2>
+  <h2>Users <%= "(#{@room_type.name})" unless @room_type.nil? %></h2>
   <div class="col-md-12">
     <p><%#= raw msg_flash(flash) %></p>
     <p class="col-md-10">
@@ -33,6 +33,7 @@
           <th>Status</th>
           <th>Room Type</th>
           <th>Requested Roommate</th>
+          <th>Room No</th>
         </tr>
       </thead>
       <tbody>
@@ -44,8 +45,16 @@
             <td><%= user.try(:user_type).try(:name) %><%= " - #{user.team_leader.try(:full_name)}" unless user.team_leader.nil?  %></td>
             <td><%= user.try(:country).try(:permalink) %></td>
             <td><%= user.status %></td>
-            <td><%= user.try(:room_type).try(:name) %></td>
+            <td>
+              <% if user.try(:room_type).try(:name).nil? %>
+                <%= user.try(:room_type).try(:name) %>
+              <% else %>
+                <%= link_to(user.try(:room_type).try(:name),
+                            admin_user_rooms_by_type_path(user.room_type.name)) %>
+              <% end %>
+            </td>
             <td><%= user.try(:room_type).try(:name) == "Twin Sharing Room" ? user.roomate : '-' %></td>
+            <td><%= user.try(:room_number) %></td>
           </tr>
         <% end %>
       </tbody>

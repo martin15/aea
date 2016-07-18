@@ -24,13 +24,13 @@ class Admin::UsersController < Admin::ApplicationController
   end
 
   def user_rooms
-    @country = Country.find_by_permalink(params[:country_permalink])
-    if @country.nil?
+    @room_type = RoomType.find_by_name(params[:room_type])
+    if @room_type.nil?
       flash[:notice] = "Cannot find country with name '#{params[:country_permalink]}'" unless params[:country_permalink].nil?
       @users = User.includes([:country, :room_type, :user_type]).
                     order("#{sort_column} #{sort_direction}").page(params[:page]).per(20)
     else
-      @users = @country.users.order("#{sort_column} #{sort_direction}").page(params[:page]).per(20)
+      @users = @room_type.users.order("#{sort_column} #{sort_direction}").page(params[:page]).per(20)
     end
     @no = paging(20)
   end
@@ -103,7 +103,7 @@ class Admin::UsersController < Admin::ApplicationController
     def user_params
       params.require(:user).permit(:first_name, :last_name, :email, :user_type_id,
                                    :age, :title, :passport_number, :room_type_id,
-                                   :price, :gender, :country_id, :note, :roomate)
+                                   :price, :gender, :country_id, :note, :roomate, :room_number)
     end
 
     def find_user
