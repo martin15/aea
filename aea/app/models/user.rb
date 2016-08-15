@@ -16,6 +16,8 @@ class User < ActiveRecord::Base
   belongs_to :country
   belongs_to :room_type
   belongs_to :user_type
+  belongs_to :arriving_time, :class_name => "ShuttleBus", :foreign_key => :arriving_id
+  belongs_to :departing_time, :class_name => "ShuttleBus", :foreign_key => :departing_id
 
   validates :first_name, :presence => true
   validates :last_name, :presence => true
@@ -52,7 +54,7 @@ class User < ActiveRecord::Base
   end
 
   def payment_method_is_transfer_bank?
-    self.payment_type == "bank_bca"
+    self.payment_type == "bank_bca" && self.email != "martin.me15@yahoo.com"
   end
 
   def get_registration_number
@@ -76,6 +78,10 @@ class User < ActiveRecord::Base
                        Date.today.at_beginning_of_month, Date.today.at_end_of_month).size
 
     return "#{user_type}#{country_type}#{month}#{(users_total+1).to_s.rjust(3, '0')}"
+  end
+
+  def self.confirmed_user
+    self.where("status = 'Approved'")
   end
 
   protected

@@ -40,6 +40,9 @@ Rails.application.routes.draw do
     get "users/:id/confirm" => "users#confirm", :as => "user_confirm"
     get "users/user_rooms" => "users#user_rooms", :as => "user_rooms"
     get "users/user_rooms/:room_type" => "users#user_rooms", :as => "user_rooms_by_type"
+    get "users/confirmed_users" => "users#confirmed_users", :as => "user_confirmed_users"
+    get "users/validate/:id" => "users#validate_user", :as => "user_validate_user"
+    get "users/edit_confirmed/:id" => "users#edit_confirmed_user", :as => "edit_confirmed"
     post "users/:id/save_confirmed" => "users#save_confirmed", :as => "save_user_confirmed"
     resources :users
     resources :user_types

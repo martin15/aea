@@ -1,5 +1,6 @@
 class Admin::UsersController < Admin::ApplicationController
-  before_filter :find_user, :only => [:edit, :update, :destroy, :delete, :confirm, :save_confirmed]
+  before_filter :find_user, :only => [:edit, :update, :destroy, :delete, :confirm, :save_confirmed,
+                                      :edit_confirmed_user]
 
   def index
     if params[:country_permalink].nil?
@@ -48,27 +49,53 @@ class Admin::UsersController < Admin::ApplicationController
 
   def new
     @user = User.new
+    @room_types = RoomType.all
   end
 
   def create
+    puts params.inspect
+    params[:user][:passport_number] = "-" if params[:user][:passport_number].blank?
     @user = User.new(user_params)
+    @user.confirmed_at = DateTime.now.to_s(:db)
+    country = Country.find_by_id(@user.country_id)
+    room_type = RoomTypesUserType.where("room_type_id = #{@user.room_type_id} and
+                                         user_type_id = #{@user.user_type_id} and
+                                         country_type = '#{country.category_type}'").first
+    price = room_type.nil? ? 0 : room_type.price
+    @user.price = price
+    @user.skip_password_validation = true
     if @user.save
+      #kirim email ke user tersebut
       flash[:notice] = 'User was successfully create.'
       redirect_to admin_users_path
     else
+      @room_types = RoomType.all
       flash[:error] = "User failed to create"
       render :action => :new
     end
   end
 
   def edit
+    @room_types = RoomType.all
   end
 
   def update
+    country = Country.find_by_id(@user.country_id)
+    room_type = RoomTypesUserType.where("room_type_id = #{@user.room_type_id} and
+                                         user_type_id = #{@user.user_type_id} and
+                                         country_type = '#{country.category_type}'").first
+    price = room_type.nil? ? 0 : room_type.price
+    params[:user][:price] = price
     if @user.update_attributes(user_params)
       flash[:notice] = 'User was successfully updated.'
-      redirect_to admin_users_path
+      if !params[:user][:arriving_id].nil? && !params[:user][:departing_id].nil?
+        #kirim email ke user tersebut
+        redirect_to admin_user_confirmed_users_path
+      else
+        redirect_to admin_users_path
+      end
     else
+      @room_types = RoomType.all
       flash[:error] = "User failed to update"
       render :action => :edit
     end
@@ -98,12 +125,33 @@ class Admin::UsersController < Admin::ApplicationController
     end
   end
 
+  def confirmed_users
+    @users = User.confirmed_user.includes([:country, :room_type, :user_type]).
+                  order("#{sort_column} #{sort_direction}").page(params[:page]).per(20)
+                puts "-------"
+                puts @users.inspect
+    @no = paging(20)
+  end
+
+  def validate_user
+    @users = User.confirmed_user.includes([:country, :room_type, :user_type]).
+                  order("#{sort_column} #{sort_direction}").page(params[:page]).per(20)
+    @no = paging(20)
+  end
+
+  def edit_confirmed_user
+    @room_types = RoomType.all
+    @departing_list = ShuttleBus.departing_list
+    @arriving_list = ShuttleBus.arriving_list
+  end
+
   private
 
     def user_params
       params.require(:user).permit(:first_name, :last_name, :email, :user_type_id,
                                    :age, :title, :passport_number, :room_type_id,
-                                   :price, :gender, :country_id, :note, :roomate, :room_number)
+                                   :price, :gender, :country_id, :note, :roomate, 
+                                   :room_number, :arriving_id, :departing_id)
     end
 
     def find_user

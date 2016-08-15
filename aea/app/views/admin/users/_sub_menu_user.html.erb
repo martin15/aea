@@ -1,0 +1,11 @@
+<p class="col-md-10">
+  <%= link_to "Add new user", new_admin_user_path %>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+  <%= link_to "Active user List", :type => 'active' %>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+  <%= link_to "inactive user List", :type => 'inactive' %>
+    &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+  <%= link_to "User Room List", admin_user_rooms_path %>
+    &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+  <%= link_to "Confirmed User", admin_user_confirmed_users_path %>
+  <span style="float:right">
+  </span>
+</p>

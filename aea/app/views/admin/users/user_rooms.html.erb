@@ -2,15 +2,8 @@
   <h2>Users <%= "(#{@room_type.name})" unless @room_type.nil? %></h2>
   <div class="col-md-12">
     <p><%#= raw msg_flash(flash) %></p>
-    <p class="col-md-10">
-      <%= link_to "Add new user", new_admin_user_path %>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
-      <%= link_to "Active user List", :type => 'active' %>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
-      <%= link_to "inactive user List", :type => 'inactive' %>
-        &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
-      <%= link_to "User Room List", admin_user_rooms_path %>
-      <span style="float:right">
-      </span>
-    </p>
+    <%= render :partial => "sub_menu_user" %>
+
     <div class="dropdown col-md-2 margin_b_30" style="float:right">
       <button class="btn btn-default dropdown-toggle user_order_by" type="button" id="dropdownMenu1"
               data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -53,7 +46,7 @@
                             admin_user_rooms_by_type_path(user.room_type.name)) %>
               <% end %>
             </td>
-            <td><%= user.try(:room_type).try(:name) == "Twin Sharing Room" ? user.roomate : '-' %></td>
+            <td><%= user.try(:room_type).try(:name) == "Twin Sharing Room" ? user.try(:roomate) : '-' %></td>
             <td><%= user.try(:room_number) %></td>
           </tr>
         <% end %>

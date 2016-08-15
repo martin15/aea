@@ -1,19 +1,11 @@
 <div class="col-md-12 content">
-  <h2><%= @country.name unless @country.nil? %> Users</h2>
+  <h2>Validate Users</h2>
   <div class="col-md-12">
     <p><%#= raw msg_flash(flash) %></p>
     <%= render :partial => "sub_menu_user" %>
 
-    <div class="dropdown col-md-2 margin_b_30" style="float:right">
-      <button class="btn btn-default dropdown-toggle user_order_by" type="button" id="dropdownMenu1"
-              data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-        Sort By
-        <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-        <li><%= link_to "Pending User", admin_users_order_by_path("Pending") %></li>
-        <li><%= link_to "Approved User", admin_users_order_by_path("Approved") %></li>
-      </ul>
+    <div class="col-xs-12" style="margin:20px 0">
+      Search :
     </div>
     <table class="table table-hover">
       <thead>
@@ -23,8 +15,6 @@
           <th><%= sortable("email", "Email", params[:type]) %></th>
           <th>User Type</th>
           <th>Country</th>
-          <th>Status</th>
-          <th>Approve At</th>
           <th>Reg Number</th>
           <th>&nbsp;</th>
         </tr>
@@ -37,16 +27,11 @@
             <td><%= user.email %></td>
             <td><%= user.try(:user_type).try(:name) %><%= " - #{user.team_leader.try(:full_name)}" unless user.team_leader.nil?  %></td>
             <td><%= link_to user.try(:country).try(:name), admin_users_by_country_path(user.try(:country).try(:permalink)) %></td>
-            <td><%= user.status %></td>
-            <td><%= user.approved_at.try(:strftime, "%d %b %Y - %H:%M") %></td>
             <td><%= user.registration_number %></td>
             <td>
-              <% if user.status != 'Approved' %>
-                <%= link_to "Confirm", admin_user_confirm_path(user), :class => "btn btn-default" %>
-              <% end %>
-              <%= link_to "Edit", edit_admin_user_path(user), :class => "btn btn-success" %>
-              <%= link_to "Delete", admin_user_path(user.id ), :method => :delete,
-                                    data: {:confirm => "Are you sure?"}, :class => "btn btn-warning" %>
+              <%= link_to "Edit Accomondation", admin_edit_confirmed_path(user), :class => "btn btn-primary" %>
+              <%= link_to "Attended", "#", :class => "btn btn-success" %>
+              <%#*<a href="#" onclick="window.print();return false;">print me</a>%>
             </td>
           </tr>
         <% end %>
