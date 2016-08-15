@@ -1,5 +1,5 @@
 class Admin::ShuttleBusesController < Admin::ApplicationController
-  before_filter :find_shuttle_bus, :only => [:edit, :update, :destroy, :delete]
+  before_filter :find_shuttle_bus, :only => [:edit, :update, :destroy, :delete, :export_as_xls]
 
   def index
     @shuttle_buses = ShuttleBus.all.page(params[:page]).per(10)
@@ -38,6 +38,14 @@ class Admin::ShuttleBusesController < Admin::ApplicationController
     flash[:notice] =  @shuttle_bus.destroy ? 'ShuttleBus was successfully deleted.' :
                                            'ShuttleBus was falied to delete.'
     redirect_to admin_shuttle_buses_path
+  end
+
+  def export_as_xls
+    @users = @shuttle_bus.users
+    respond_to do |format|
+      #format.xls { send_data @users, :filename => "#{@shuttle_bus.name}-#{Date.today.strftime('%d-%b-%Y')}"}
+      format.xls
+    end
   end
 
   private

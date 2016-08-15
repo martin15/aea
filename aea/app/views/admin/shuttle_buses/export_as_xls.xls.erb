@@ -1,0 +1,39 @@
+<table border="1">
+  <tr>
+    <th colspan="11" style="font-size: 20px;">
+      <%= @shuttle_bus.shuttle_bus_type.upcase %> -
+      <%= @shuttle_bus.airport_name %>
+      (<%= @shuttle_bus.pick_up_date.strftime("%d-%b-%Y") %> &nbsp;at&nbsp;
+       <%= @shuttle_bus.pick_up_time.strftime("%H:%M:%S") %>)
+    </th>
+  </tr>
+  <tr>
+    <th>#</th>
+    <th>Registration Number</th>
+    <th>Full Name</th>
+    <th>Email</th>
+    <th>Gender</th>
+    <th>Phone</th>
+    <th>User Type</th>
+    <th>Country</th>
+    <th>Passport</th>
+    <th>Room Mate</th>
+    <th>Room Number</th>
+  </tr>
+  <% @users.each_with_index do |user, x| %>
+  <tr>
+    <td><%= x+1 %></td>
+    <td><%= user.registration_number %></td>
+    <td><%= user.full_name %></td>
+    <td><%= user.email %></td>
+    <td><%= user.gender %></td>
+    <td><%= user.phone %></td>
+    <td><%= user.try(:user_type).try(:name) %></td>
+    <td><%= user.try(:country).try(:name) %></td>
+    <td><%= user.passport_number %></td>
+    <td><%= user.roomate %></td>
+    <td><%= user.room_number %></td>
+  </tr>
+  <% end %>
+</table>
+
