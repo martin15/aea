@@ -29,7 +29,7 @@
             <td><%= link_to user.try(:country).try(:name), admin_users_by_country_path(user.try(:country).try(:permalink)) %></td>
             <td><%= user.registration_number %></td>
             <td>
-              <%= link_to "Edit Accomondation", admin_edit_confirmed_path(user), :class => "btn btn-primary" %>
+              <%= link_to "Edit Accommodation", admin_edit_confirmed_path(user), :class => "btn btn-primary" %>
               <%= link_to "Attended", "#", :class => "btn btn-success" %>
               <%#*<a href="#" onclick="window.print();return false;">print me</a>%>
             </td>
