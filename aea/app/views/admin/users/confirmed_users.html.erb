@@ -15,7 +15,7 @@
           <th><%= sortable("email", "Email", params[:type]) %></th>
           <th>User Type</th>
           <th>Country</th>
-          <th>Reg Number</th>
+          <th><%= sortable("registration_number", "Reg Number", params[:type]) %></th>
           <th>&nbsp;</th>
         </tr>
       </thead>
@@ -30,7 +30,7 @@
             <td><%= user.registration_number %></td>
             <td>
               <%= link_to "Edit Accommodation", admin_edit_confirmed_path(user), :class => "btn btn-primary" %>
-              <%= link_to "Attended", "#", :class => "btn btn-success" %>
+              <%= link_to "Attending", "#", :class => "btn btn-success" %>
               <%#*<a href="#" onclick="window.print();return false;">print me</a>%>
             </td>
           </tr>
