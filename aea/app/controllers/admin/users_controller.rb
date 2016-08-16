@@ -65,6 +65,9 @@ class Admin::UsersController < Admin::ApplicationController
     @user.price = price
     @user.skip_password_validation = true
     if @user.save
+      unless params[:filename].nil?
+        Ticket.create(:filename => params[:filename], :user_id => @user.id)
+      end
       #kirim email ke user tersebut
       flash[:notice] = 'User was successfully create.'
       redirect_to admin_users_path
@@ -87,6 +90,9 @@ class Admin::UsersController < Admin::ApplicationController
     price = room_type.nil? ? 0 : room_type.price
     params[:user][:price] = price
     if @user.update_attributes(user_params)
+      unless params[:filename].nil?
+        Ticket.create(:filename => params[:filename], :user_id => @user.id)
+      end
       flash[:notice] = 'User was successfully updated.'
       if !params[:user][:arriving_id].nil? && !params[:user][:departing_id].nil?
         #kirim email ke user tersebut
@@ -143,6 +149,13 @@ class Admin::UsersController < Admin::ApplicationController
     @room_types = RoomType.all
     @departing_list = ShuttleBus.departing_list
     @arriving_list = ShuttleBus.arriving_list
+  end
+
+  def export_as_xls
+    @users = User.not_admin.includes([:user_type, :country, :room_type])
+    respond_to do |format|
+      format.xls
+    end
   end
 
   private

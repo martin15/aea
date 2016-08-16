@@ -1,0 +1,51 @@
+<table border="1">
+  <tr>
+    <th colspan="16" style="font-size: 20px;">
+      User List
+    </th>
+  </tr>
+  <tr style="font-size: 14px;">
+    <th>#</th>
+    <th>Registration Number</th>
+    <th>Full Name</th>
+    <th>Email</th>
+    <th>Gender</th>
+    <th>Phone</th>
+    <th>Country</th>
+    <th>User Type</th>
+    <th>Passport</th>
+    <th>Status</th>
+    <th>Approved At</th>
+    <th>Room Type</th>
+    <th>Fee</th>
+    <th>Arriving Schedule</th>
+    <th>Departing Schedule</th>
+    <th>Note</th>
+  </tr>
+  <% @users.each_with_index do |user, x| %>
+    <tr>
+      <td><%= x+1 %></td>
+      <td><%= user.registration_number %></td>
+      <td><%= user.full_name %></td>
+      <td><%= user.email %></td>
+      <td><%= user.gender %></td>
+      <td><%= "'#{user.phone}" unless user.phone.nil? %></td>
+      <td><%= user.try(:country).try(:name) %></td>
+      <td><%= user.try(:user_type).try(:name) %></td>
+      <td><%= user.passport_number %></td>
+      <td><%= "Inactive/" if user.confirmed_at.nil? %><%= user.status %></td>
+      <td><%= user.approved_at %></td>
+      <td><%= user.try(:room_type).try(:name) %></td>
+      <td><%= user.price %></td>
+      <td>
+        <%= user.try(:arriving_time).try(:pick_up_date).try("strftime", "%d-%b-%Y") %> -
+        <%= user.try(:arriving_time).try(:pick_up_time).try("strftime", "%H:%M:%S") %>
+      </td>
+      <td>
+        <%= user.try(:departing_time).try(:pick_up_date).try("strftime", "%d-%b-%Y") %> -
+        <%= user.try(:departing_time).try(:pick_up_time).try("strftime", "%H:%M:%S") %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+

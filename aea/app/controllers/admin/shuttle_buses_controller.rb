@@ -1,5 +1,5 @@
 class Admin::ShuttleBusesController < Admin::ApplicationController
-  before_filter :find_shuttle_bus, :only => [:edit, :update, :destroy, :delete, :export_as_xls]
+  before_filter :find_shuttle_bus, :only => [:edit, :update, :destroy, :delete, :show, :export_as_xls]
 
   def index
     @shuttle_buses = ShuttleBus.all.page(params[:page]).per(10)
@@ -32,6 +32,10 @@ class Admin::ShuttleBusesController < Admin::ApplicationController
       flash[:error] = "ShuttleBus failed to update"
       render :action => :edit
     end
+  end
+
+  def show
+    @users = @shuttle_bus.users
   end
 
   def destroy

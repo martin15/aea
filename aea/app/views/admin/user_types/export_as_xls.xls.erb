@@ -1,11 +1,7 @@
 <table border="1">
   <tr>
-    <th colspan="9" style="font-size: 20px;">
-      <%= @shuttle_bus.shuttle_bus_type.upcase %> -
-      <%= @shuttle_bus.name %> /
-      <%= @shuttle_bus.airport_name %>
-      (<%= @shuttle_bus.pick_up_date.strftime("%d-%b-%Y") %> &nbsp;at&nbsp;
-       <%= @shuttle_bus.pick_up_time.strftime("%H:%M:%S") %>)
+    <th colspan="8" style="font-size: 20px;">
+      User List - <%= @user_type.name %>
     </th>
   </tr>
   <tr>
@@ -15,7 +11,6 @@
     <th>Email</th>
     <th>Gender</th>
     <th>Phone</th>
-    <th>User Type</th>
     <th>Country</th>
     <th>Passport</th>
   </tr>
@@ -26,8 +21,7 @@
       <td><%= user.full_name %></td>
       <td><%= user.email %></td>
       <td><%= user.gender %></td>
-      <td><%= user.phone %></td>
-      <td><%= user.try(:user_type).try(:name) %></td>
+      <td><%= "'#{user.phone}" unless user.phone.nil? %></td>
       <td><%= user.try(:country).try(:name) %></td>
       <td><%= user.passport_number %></td>
     </tr>

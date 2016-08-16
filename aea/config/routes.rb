@@ -44,8 +44,10 @@ Rails.application.routes.draw do
     get "users/validate/:id" => "users#validate_user", :as => "user_validate_user"
     get "users/edit_confirmed/:id" => "users#edit_confirmed_user", :as => "edit_confirmed"
     post "users/:id/save_confirmed" => "users#save_confirmed", :as => "save_user_confirmed"
+    get "users/export_as_xls" => "users#export_as_xls", :as => "users_export_as_xls"
     resources :users
     resources :user_types
+    get "user_types/:id/export_as_xls" => "user_types#export_as_xls", :as => "user_type_export_as_xls"
 
   end
   root 'home#index'

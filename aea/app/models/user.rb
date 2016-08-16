@@ -74,8 +74,8 @@ class User < ActiveRecord::Base
 
     country_type = self.country.category_type == "Developed" ? "M" : "B"
     month = Date.today.try(:strftime, "%m")
-    users_total = User.where("approved_at >= ? AND approved_at <= ?",
-                       Date.today.at_beginning_of_month, Date.today.at_end_of_month).size
+    users_total = User.where("approved_at >= ? AND approved_at <= ? AND user_type_id = ?",
+                       Date.today.at_beginning_of_month, Date.today.at_end_of_month, self.user_type_id).size
 
     return "#{user_type}#{country_type}#{month}#{(users_total+1).to_s.rjust(3, '0')}"
   end

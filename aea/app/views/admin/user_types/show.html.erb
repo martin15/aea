@@ -1,0 +1,32 @@
+<div class="col-md-12 content">
+  <h2>User List - <%= @user_type.name %></h2>
+  <div class="col-md-12">
+    <table class="table table-hover">
+      <tr>
+        <th>#</th>
+        <th>Registration Number</th>
+        <th>Full Name</th>
+        <th>Email</th>
+        <th>Gender</th>
+        <th>Phone</th>
+        <th>Country</th>
+        <th>Passport</th>
+      </tr>
+      <% @users.each_with_index do |user, x| %>
+      <tr>
+        <td><%= x+1 %></td>
+        <td><%= user.registration_number %></td>
+        <td><%= user.full_name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.gender %></td>
+        <td><%= user.phone %></td>
+        <td><%= user.try(:country).try(:name) %></td>
+        <td><%= user.passport_number %></td>
+      </tr>
+      <% end %>
+    </table>
+    <div class="col-md-12 margin_b_30">
+      <%= link_to "Back", admin_user_types_path, :class => "btn btn-primary" %>
+    </div>
+  </div>
+</div>

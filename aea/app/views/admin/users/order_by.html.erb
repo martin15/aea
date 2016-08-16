@@ -2,11 +2,8 @@
   <h2><%= @country.name unless @country.nil? %> Users</h2>
   <div class="col-md-12">
     <p><%#= raw msg_flash(flash) %></p>
-    <p class="col-md-10">
-      <%= link_to "Add new user", new_admin_user_path %>
-      <span style="float:right">
-      </span>
-    </p>
+    <%= render :partial => "sub_menu_user" %>
+
     <div class="dropdown col-md-2 margin_b_30" style="float:right">
       <button class="btn btn-default dropdown-toggle user_order_by" type="button" id="dropdownMenu1"
               data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">

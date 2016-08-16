@@ -64,6 +64,7 @@
       <div class="form-group">
         <div class="col-sm-12">
           <%= f.submit "Confirm", :class => "btn btn-success" %>
+          <%= link_to "Back", admin_users_path(:type => 'active'), :class => "btn btn-warning" %>
         </div>
       </div>
     <% end %>

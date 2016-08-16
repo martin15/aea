@@ -1,5 +1,5 @@
 class Admin::UserTypesController < Admin::ApplicationController
-  before_filter :find_user_type, :only => [:edit, :update, :destroy, :delete]
+  before_filter :find_user_type, :only => [:edit, :update, :destroy, :delete, :show, :export_as_xls]
 
   def index
     @user_types = UserType.all.page(params[:page]).per(10)
@@ -34,10 +34,22 @@ class Admin::UserTypesController < Admin::ApplicationController
     end
   end
 
+  def show
+    @users = @user_type.users
+  end
+
   def destroy
     flash[:notice] =  @user_type.destroy ? 'UserType was successfully deleted.' :
                                            'UserType was falied to delete.'
     redirect_to admin_user_types_path
+  end
+
+  def export_as_xls
+    @users = @user_type.users
+    respond_to do |format|
+      #format.xls { send_data @users, :filename => "#{@shuttle_bus.name}-#{Date.today.strftime('%d-%b-%Y')}"}
+      format.xls
+    end
   end
 
   private

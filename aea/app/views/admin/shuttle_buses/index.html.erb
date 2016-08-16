@@ -28,6 +28,7 @@
               <%= link_to "Edit", edit_admin_shuttle_bus_path(shuttle_bus), :class => "btn btn-success" %>
               <%= link_to "Delete", admin_shuttle_bus_path(shuttle_bus.id ), :method => :delete,
                                     data: {:confirm => "Are you sure?"}, :class => "btn btn-warning" %>
+              <%= link_to "User List", admin_shuttle_bus_path(shuttle_bus.id ), :class => "btn btn-default" %>
               <%= link_to "Export as xls", admin_shuttle_bus_export_as_xls_path(:id => shuttle_bus.id, :format => "xls"),
                                            :class => "btn btn-danger" %>
             </td>
