@@ -179,7 +179,7 @@ class Admin::UsersController < Admin::ApplicationController
       params.require(:user).permit(:first_name, :last_name, :email, :user_type_id,
                                    :age, :title, :passport_number, :room_type_id,
                                    :price, :gender, :country_id, :note, :roomate, 
-                                   :room_number, :arriving_id, :departing_id)
+                                   :room_number, :arriving_id, :departing_id, :need_accomodation)
     end
 
     def find_user

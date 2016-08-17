@@ -1,6 +1,6 @@
 <table border="1">
   <tr>
-    <th colspan="16" style="font-size: 20px;">
+    <th colspan="18" style="font-size: 20px;">
       User List
     </th>
   </tr>
@@ -21,6 +21,7 @@
     <th>Fee</th>
     <th>Arriving Schedule</th>
     <th>Departing Schedule</th>
+    <th>Need Accommodation?</th>
     <th>Note</th>
   </tr>
   <% @users.each_with_index do |user, x| %>
@@ -41,7 +42,7 @@
       <td><%= user.price %></td>
       <td>
         <% if user.arriving_id.to_s == "0" %>
-            I don't Need Accommodation
+            I don't Need Transportation
           <% elsif !user.arriving_id.nil? %>
             <%= user.try(:arriving_time).try(:pick_up_date).try("strftime", "%d-%b-%Y") %> -
             <%= user.try(:arriving_time).try(:pick_up_time).try("strftime", "%H:%M:%S") %>
@@ -49,12 +50,13 @@
       </td>
       <td>
         <% if user.departing_id.to_s == "0" %>
-          I don't Need Accommodation
+          I don't Need Transportation
         <% elsif !user.departing_id.nil? %>
           <%= user.try(:departing_time).try(:pick_up_date).try("strftime", "%d-%b-%Y") %> -
           <%= user.try(:departing_time).try(:pick_up_time).try("strftime", "%H:%M:%S") %>
         <% end %>
       </td>
+      <td><%= user.try(:need_accomodation) ? "Yes" : "No" %></td>
       <td><%= user.try(:note) %></td>
     </tr>
   <% end %>
