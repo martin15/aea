@@ -83,9 +83,12 @@ class Admin::UsersController < Admin::ApplicationController
   end
 
   def update
-    country = Country.find_by_id(@user.country_id)
-    room_type = RoomTypesUserType.where("room_type_id = #{@user.room_type_id} and
-                                         user_type_id = #{@user.user_type_id} and
+    c_id = params[:user][:country_id].nil? ? @user.country_id : params[:user][:country_id]
+    rt_id = params[:user][:room_type_id].nil? ? @user.room_type_id : params[:user][:room_type_id]
+    ut_id = params[:user][:user_type_id].nil? ? @user.user_type_id : params[:user][:user_type_id]
+    country = Country.find_by_id(c_id)
+    room_type = RoomTypesUserType.where("room_type_id = #{rt_id} and
+                                         user_type_id = #{ut_id} and
                                          country_type = '#{country.category_type}'").first
     price = room_type.nil? ? 0 : room_type.price
     params[:user][:price] = price
@@ -147,8 +150,8 @@ class Admin::UsersController < Admin::ApplicationController
 
   def edit_confirmed_user
     @room_types = RoomType.all
-    @departing_list = ShuttleBus.departing_list
-    @arriving_list = ShuttleBus.arriving_list
+    @departing_list = ShuttleBus.departing_list.order(:pick_up_time)
+    @arriving_list = ShuttleBus.arriving_list.order(:pick_up_time)
   end
 
   def export_as_xls
@@ -156,6 +159,18 @@ class Admin::UsersController < Admin::ApplicationController
     respond_to do |format|
       format.xls
     end
+  end
+
+  def search_user
+    @users = User.not_admin
+
+    @users = @users.where("first_name like '%#{params[:search]}%' OR
+                           last_name like '%#{params[:search]}%' OR
+                           email like '%#{params[:search]}%' OR
+                           registration_number like '%#{params[:search]}%' ").
+                    includes([:country, :room_type, :user_type]).
+                    order("#{sort_column} #{sort_direction}").page(params[:page]).per(20)
+    @no = paging(20)
   end
 
   private
@@ -176,7 +191,7 @@ class Admin::UsersController < Admin::ApplicationController
     end
 
     def sort_column
-      params[:sort] || "first_name"
+      params[:sort] || "confirmed_at"
     end
 
     def sort_direction

@@ -77,7 +77,13 @@
       <div class="form-group">
         <%= f.label :arriving_id, "Arriving *", :class => "col-sm-2 control-label" %>
         <div class="col-sm-10">
-          <% checked = @user.arriving_time.nil? ? @arriving_list.try(:first).try(:id) : @user.arriving_id %>
+          <% checked = @user.arriving_time.nil? ? 0 : @user.arriving_id %>
+          <div class="radio">
+            <label>
+              <%= f.radio_button :arriving_id, 0, :checked => checked.to_i == 0 %>
+              I don't Need Accommodation
+            </label>
+          </div>
           <% @arriving_list.all.each do |arriving| %>
             <div class="radio">
               <label>
@@ -91,7 +97,13 @@
       <div class="form-group">
         <%= f.label :departing_id, "Departing *", :class => "col-sm-2 control-label" %>
         <div class="col-sm-10">
-          <% checked = @user.departing_time.nil? ? @departing_list.try(:first).try(:id) : @user.departing_id %>
+          <% checked = @user.departing_time.nil? ? 0 : @user.departing_id %>
+          <div class="radio">
+            <label>
+              <%= f.radio_button :departing_id, 0, :checked => checked.to_i == 0 %>
+              I don't Need Accommodation
+            </label>
+          </div>
           <% @departing_list.all.each do |departing| %>
             <div class="radio">
               <label>

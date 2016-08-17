@@ -11,3 +11,16 @@
   <span style="float:right">
   </span>
 </p>
+
+<div class="col-xs-10" style="margin:20px 0">
+  <%= form_tag admin_search_user_path, :method => :get,  :class => "form-horizontal" do |f|  %>
+    <div class="form-group">
+      <div class="col-sm-5">
+        <%= text_field_tag :search, "",:class => "form-control" %>
+      </div>
+      <div class="col-sm-7">
+        <%= submit_tag "Search", :class => "btn btn-primary" %>
+      </div>
+    </div>
+  <% end %>
+</div>

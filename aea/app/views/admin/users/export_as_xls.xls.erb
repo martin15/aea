@@ -15,6 +15,7 @@
     <th>User Type</th>
     <th>Passport</th>
     <th>Status</th>
+    <th>Register At</th>
     <th>Approved At</th>
     <th>Room Type</th>
     <th>Fee</th>
@@ -34,17 +35,27 @@
       <td><%= user.try(:user_type).try(:name) %></td>
       <td><%= user.passport_number %></td>
       <td><%= "Inactive/" if user.confirmed_at.nil? %><%= user.status %></td>
-      <td><%= user.approved_at %></td>
+      <td><%= user.try(:confirmed_at).try("strftime", "%d-%b-%Y") %></td>
+      <td><%= user.try(:approved_at).try("strftime", "%d-%b-%Y") %></td>
       <td><%= user.try(:room_type).try(:name) %></td>
       <td><%= user.price %></td>
       <td>
-        <%= user.try(:arriving_time).try(:pick_up_date).try("strftime", "%d-%b-%Y") %> -
-        <%= user.try(:arriving_time).try(:pick_up_time).try("strftime", "%H:%M:%S") %>
+        <% if user.arriving_id.to_s == "0" %>
+            I don't Need Accommodation
+          <% elsif !user.arriving_id.nil? %>
+            <%= user.try(:arriving_time).try(:pick_up_date).try("strftime", "%d-%b-%Y") %> -
+            <%= user.try(:arriving_time).try(:pick_up_time).try("strftime", "%H:%M:%S") %>
+        <% end %>
       </td>
       <td>
-        <%= user.try(:departing_time).try(:pick_up_date).try("strftime", "%d-%b-%Y") %> -
-        <%= user.try(:departing_time).try(:pick_up_time).try("strftime", "%H:%M:%S") %>
+        <% if user.departing_id.to_s == "0" %>
+          I don't Need Accommodation
+        <% elsif !user.departing_id.nil? %>
+          <%= user.try(:departing_time).try(:pick_up_date).try("strftime", "%d-%b-%Y") %> -
+          <%= user.try(:departing_time).try(:pick_up_time).try("strftime", "%H:%M:%S") %>
+        <% end %>
       </td>
+      <td><%= user.try(:note) %></td>
     </tr>
   <% end %>
 </table>
