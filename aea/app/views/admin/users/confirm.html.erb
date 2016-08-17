@@ -10,7 +10,7 @@
             Not image yet
           <% else %>
             <%= image_tag @user.ticket.filename_url(:medium) %>
-            <%= link_to "Detail", @user.ticket.filename_url, :target => :blank %>
+            <%= link_to "Detail", @user.ticket.filename_url, :target => "_blank" %>
           <% end %>
         </div>
       </div>
