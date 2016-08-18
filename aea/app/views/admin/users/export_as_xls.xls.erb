@@ -42,7 +42,7 @@
       <td><%= user.price %></td>
       <td>
         <% if user.arriving_id.to_s == "0" %>
-            I don't Need Transportation
+            I don't Need Any Airport Transfer
           <% elsif !user.arriving_id.nil? %>
             <%= user.try(:arriving_time).try(:pick_up_date).try("strftime", "%d-%b-%Y") %> -
             <%= user.try(:arriving_time).try(:pick_up_time).try("strftime", "%H:%M:%S") %>
@@ -50,7 +50,7 @@
       </td>
       <td>
         <% if user.departing_id.to_s == "0" %>
-          I don't Need Transportation
+          I don't Need Any Airport Transfer
         <% elsif !user.departing_id.nil? %>
           <%= user.try(:departing_time).try(:pick_up_date).try("strftime", "%d-%b-%Y") %> -
           <%= user.try(:departing_time).try(:pick_up_time).try("strftime", "%H:%M:%S") %>

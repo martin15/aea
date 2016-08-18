@@ -93,7 +93,7 @@
           <div class="radio">
             <label>
               <%= f.radio_button :arriving_id, 0, :checked => checked.to_i == 0 %>
-              I don't Need Transportation
+              I don't Need Any Airport Transfer
             </label>
           </div>
           <% @arriving_list.all.each do |arriving| %>
@@ -113,7 +113,7 @@
           <div class="radio">
             <label>
               <%= f.radio_button :departing_id, 0, :checked => checked.to_i == 0 %>
-              I don't Need Transportation
+              I don't Need Any Airport Transfer
             </label>
           </div>
           <% @departing_list.all.each do |departing| %>
