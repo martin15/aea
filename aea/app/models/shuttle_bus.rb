@@ -1,6 +1,11 @@
 class ShuttleBus < ActiveRecord::Base
   #has_many :users
 
+  validates :name, :presence => true
+  validates :pick_up_date, :presence => true
+  validates :pick_up_time, :presence => true
+  validates :airport_name, :presence => true
+
   def self.arriving_list
     ShuttleBus.where("shuttle_bus_type = 'arriving'")
   end

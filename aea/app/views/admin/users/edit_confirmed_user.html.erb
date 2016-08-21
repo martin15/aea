@@ -100,7 +100,7 @@
             <div class="radio">
               <label>
                 <%= f.radio_button :arriving_id, arriving.id, :checked => arriving.id == checked %>
-                <%= arriving.airport_name %> (<%= arriving.pick_up_date.strftime("%d-%b-%Y") %> &nbsp;at&nbsp; <%= arriving.pick_up_time.strftime("%H:%M:%S") %>)
+                <%= arriving.airport_name %> (<%= arriving.try(:pick_up_date).try(:strftime, "%d-%b-%Y") %> &nbsp;at&nbsp; <%= arriving.pick_up_time.strftime("%H:%M:%S") %>)
               </label>
             </div>
           <% end %>
@@ -120,7 +120,7 @@
             <div class="radio">
               <label>
                 <%= f.radio_button :departing_id, departing.id, :checked => departing.id == checked %>
-                <%= departing.airport_name %> (<%= departing.pick_up_date.strftime("%d-%b-%Y") %>  &nbsp;at&nbsp; <%= departing.pick_up_time.strftime("%H:%M:%S") %>)
+                <%= departing.airport_name %> (<%= departing.try(:pick_up_date).try(:strftime, "%d-%b-%Y") %>  &nbsp;at&nbsp; <%= departing.pick_up_time.strftime("%H:%M:%S") %>)
               </label>
             </div>
           <% end %>

@@ -68,6 +68,17 @@ class Admin::UsersController < Admin::ApplicationController
       unless params[:filename].nil?
         Ticket.create(:filename => params[:filename], :user_id => @user.id)
       end
+      #bikin pickup schedule
+      if !params[:arriving_date].blank? && !params[:arriving_time].blank? &&
+         !params[:arriving_flight_number].blank? && !params[:arriving_airport].blank? &&
+         !params[:departing_date].blank? && !params[:departing_time].blank? &&
+         !params[:departing_flight_number].blank? && !params[:departing_airport].blank?
+       PickUpSchedule.create(:arriving_date => params[:arriving_date], :arriving_time => params[:arriving_time],
+                             :arriving_flight_number => params[:arriving_flight_number], :arriving_airport => params[:arriving_airport],
+                             :departing_date => params[:departing_date], :departing_time => params[:departing_time],
+                             :departing_flight_number => params[:departing_flight_number], :departing_airport => params[:departing_airport],
+                             :user_id => @user.id)
+      end
       #kirim email ke user tersebut
       flash[:notice] = 'User was successfully create.'
       redirect_to admin_users_path
@@ -80,6 +91,17 @@ class Admin::UsersController < Admin::ApplicationController
 
   def edit
     @room_types = RoomType.all
+    @pu = @user.pick_up_schedule
+    unless @pu.nil?
+      params[:arriving_date] = @pu.arriving_date
+      params[:arriving_time] = @pu.arriving_time
+      params[:arriving_flight_number] = @pu.arriving_flight_number
+      params[:arriving_airport] = @pu.arriving_airport
+      params[:departing_date] = @pu.departing_date
+      params[:departing_time] = @pu.departing_time
+      params[:departing_flight_number] = @pu.departing_flight_number
+      params[:departing_airport] = @pu.departing_airport
+    end
   end
 
   def update
@@ -96,6 +118,27 @@ class Admin::UsersController < Admin::ApplicationController
       unless params[:filename].nil?
         Ticket.create(:filename => params[:filename], :user_id => @user.id)
       end
+
+      if !params[:arriving_date].blank? && !params[:arriving_time].blank? &&
+         !params[:arriving_flight_number].blank? && !params[:arriving_airport].blank? &&
+         !params[:departing_date].blank? && !params[:departing_time].blank? &&
+         !params[:departing_flight_number].blank? && !params[:departing_airport].blank?
+        @pu = @user.pick_up_schedule
+        if @pu.nil?
+          PickUpSchedule.create(:arriving_date => params[:arriving_date], :arriving_time => params[:arriving_time],
+                                :arriving_flight_number => params[:arriving_flight_number], :arriving_airport => params[:arriving_airport],
+                                :departing_date => params[:departing_date], :departing_time => params[:departing_time],
+                                :departing_flight_number => params[:departing_flight_number], :departing_airport => params[:departing_airport],
+                                :user_id => @user.id)
+
+        else
+          @pu.update_attributes(:arriving_date => params[:arriving_date], :arriving_time => params[:arriving_time],
+                                :arriving_flight_number => params[:arriving_flight_number], :arriving_airport => params[:arriving_airport],
+                                :departing_date => params[:departing_date], :departing_time => params[:departing_time],
+                                :departing_flight_number => params[:departing_flight_number], :departing_airport => params[:departing_airport])
+        end
+      end
+
       flash[:notice] = 'User was successfully updated.'
       if !params[:user][:arriving_id].nil? && !params[:user][:departing_id].nil?
         #kirim email ke user tersebut
@@ -105,6 +148,17 @@ class Admin::UsersController < Admin::ApplicationController
       end
     else
       @room_types = RoomType.all
+      @pu = @user.pick_up_schedule
+      unless @pu.nil?
+        params[:arriving_date] = @pu.arriving_date
+        params[:arriving_time] = @pu.arriving_time
+        params[:arriving_flight_number] = @pu.arriving_flight_number
+        params[:arriving_airport] = @pu.arriving_airport
+        params[:departing_date] = @pu.departing_date
+        params[:departing_time] = @pu.departing_time
+        params[:departing_flight_number] = @pu.departing_flight_number
+        params[:departing_airport] = @pu.departing_airport
+      end
       flash[:error] = "User failed to update"
       render :action => :edit
     end

@@ -20,7 +20,9 @@
     <th>Room Type</th>
     <th>Fee</th>
     <th>Arriving Schedule</th>
+    <th>Arriving Pick Up Schedule</th>
     <th>Departing Schedule</th>
+    <th>Departing Pick Up Schedule</th>
     <th>Need Accommodation?</th>
     <th>Note</th>
   </tr>
@@ -32,20 +34,47 @@
       <td><%= user.email %></td>
       <td><%= user.gender %></td>
       <td><%= "'#{user.phone}" unless user.phone.nil? %></td>
-      <td><%= user.try(:country).try(:name) %></td>
+      <td><%= user.try(:country).try(:name) %> (<%= user.try(:country).try(:category_type) %>)</td>
       <td><%= user.try(:user_type).try(:name) %></td>
       <td><%= user.passport_number %></td>
       <td><%= "Inactive/" if user.confirmed_at.nil? %><%= user.status %></td>
       <td><%= user.try(:confirmed_at).try("strftime", "%d-%b-%Y") %></td>
       <td><%= user.try(:approved_at).try("strftime", "%d-%b-%Y") %></td>
       <td><%= user.try(:room_type).try(:name) %></td>
-      <td><%= user.price %></td>
+      <td>
+        <% if user.is_indonesian? %>
+          <%= number_to_currency(user.price, unit: "Rp. ") %>]
+        <% else %>
+          <%= number_to_currency(user.price) %>
+        <% end %>
+      </td>
+      <% @pu = user.pick_up_schedule %>
+      <td>
+        <% if @pu.nil? %>
+          -
+        <% else %>
+          <%= @pu.try(:arriving_airport) %> -
+          <%= @pu.try(:arriving_flight_number) %>
+          (<%= @pu.try(:arriving_date).try("strftime", "%d-%b-%Y") %> -
+          <%= @pu.try(:arriving_time).try("strftime", "%H:%M:%S") %>)
+        <% end %>
+      </td>
       <td>
         <% if user.arriving_id.to_s == "0" %>
             I don't Need Any Airport Transfer
           <% elsif !user.arriving_id.nil? %>
             <%= user.try(:arriving_time).try(:pick_up_date).try("strftime", "%d-%b-%Y") %> -
             <%= user.try(:arriving_time).try(:pick_up_time).try("strftime", "%H:%M:%S") %>
+        <% end %>
+      </td>
+      <td>
+        <% if @pu.nil? %>
+          -
+        <% else %>
+          <%= @pu.try(:departing_airport) %> -
+          <%= @pu.try(:departing_flight_number) %>
+          (<%= @pu.try(:departing_time).try("strftime", "%d-%b-%Y") %> -
+          <%= @pu.try(:departing_date).try("strftime", "%H:%M:%S") %>)
         <% end %>
       </td>
       <td>
