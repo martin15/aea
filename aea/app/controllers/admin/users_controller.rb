@@ -142,6 +142,8 @@ class Admin::UsersController < Admin::ApplicationController
       flash[:notice] = 'User was successfully updated.'
       if !params[:user][:arriving_id].nil? && !params[:user][:departing_id].nil?
         #kirim email ke user tersebut
+        AccommodationInfo.accommodation_info_for_user(@user, the_domain).deliver_now
+        AccommodationInfo.accommodation_info_for_admin(@user, the_domain).deliver_now
         redirect_to admin_user_confirmed_users_path
       else
         redirect_to admin_users_path

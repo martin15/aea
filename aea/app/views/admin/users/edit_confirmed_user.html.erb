@@ -111,7 +111,7 @@
           <% @arriving_list.all.each do |arriving| %>
             <div class="radio">
               <label>
-                <%= f.radio_button :arriving_id, arriving.id, :checked => arriving.id == checked %>
+                <%= f.radio_button :arriving_id, arriving.id, :checked => arriving.id.to_i == checked.to_i %>
                 <%= arriving.airport_name %> (<%= arriving.try(:pick_up_date).try(:strftime, "%d-%b-%Y") %> &nbsp;at&nbsp; <%= arriving.pick_up_time.strftime("%H:%M:%S") %>)
               </label>
             </div>
@@ -142,7 +142,7 @@
           <% @departing_list.all.each do |departing| %>
             <div class="radio">
               <label>
-                <%= f.radio_button :departing_id, departing.id, :checked => departing.id == checked %>
+                <%= f.radio_button :departing_id, departing.id, :checked => departing.id.to_i == checked.to_i %>
                 <%= departing.airport_name %> (<%= departing.try(:pick_up_date).try(:strftime, "%d-%b-%Y") %>  &nbsp;at&nbsp; <%= departing.pick_up_time.strftime("%H:%M:%S") %>)
               </label>
             </div>
