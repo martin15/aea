@@ -1,0 +1,2 @@
+class OccupiedSeatsController < ApplicationController
+end

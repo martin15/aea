@@ -1,0 +1,45 @@
+<div class="col-md-12 content">
+  <h2>Area Names</h2>
+  <div class="col-md-12">
+    <p><%#= raw msg_flash(flash) %></p>
+    <p>
+      <%= link_to "Add new area_name", new_area_name_path %>
+    </p>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Main Column</th>
+          <th>Total Row</th>
+          <th>Seats/row</th>
+          <th>Status</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @area_names.each_with_index do |area_name, x| %>
+          <tr>
+            <th scope="row"><%= @no+x+1 %></th>
+            <td><%= area_name.name %></td>
+            <td><%= area_name.main_column %></td>
+            <td><%= area_name.total_row %></td>
+            <td><%= area_name.seats_per_row %></td>
+            <td><%= area_name.status ? "Active" : "Inactive" %></td>
+            <td>
+              <%= link_to "Edit", edit_area_name_path(area_name), :class => "btn btn-success" %>
+              <%= link_to "Delete", area_name_path(area_name.id ), :method => :delete,
+                                    data: {:confirm => "Are you sure?"}, :class => "btn btn-warning" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <div class="admin-row">
+      <%= paginate @area_names, :link_separator => " | ",
+                                 :previous_label => "&laquo; previous",
+                                 :next_label => "next &raquo;" %>
+
+    </div>
+  </div>
+</div>

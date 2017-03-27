@@ -40,3 +40,9 @@ end
 
 room_type = UserType.find_or_create_by(:name => "Single Room")
 room_type_2 = UserType.find_or_create_by(:name => "Twin Sharing Room")
+
+
+area_name_1 = AreaName.find_or_create_by(:name => "Front")
+area_name_2 = AreaName.find_or_create_by(:name => "Back")
+area_name_3 = AreaName.find_or_create_by(:name => "Balcony")
+area_name_4 = AreaName.find_or_create_by(:name => "Outside")

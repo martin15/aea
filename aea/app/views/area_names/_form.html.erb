@@ -1,0 +1,53 @@
+<%# content_for :javascript_includes do %>
+  <%#= javascript_include_tag "/assets/ckeditor/ckeditor" %>
+<%# end %>
+
+<% if @area_name.errors.any? %>
+  <div class="alert alert-danger alert-dismissable" group="alert">
+    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <h4><%= pluralize(@area_name.errors.count, "error") %> prohibited this group from being saved:</h4>
+    <ul>
+    <% @area_name.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="form-group">
+  <%= f.label :name, "Name *", :class => "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+    <%= f.text_field :name, :class => "form-control" %>
+  </div>
+</div>
+
+<div class="form-group">
+  <%= f.label :main_column, "Main Column *", :class => "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+    <%= f.text_field :main_column, :class => "form-control" %>
+  </div>
+</div>
+
+<div class="form-group">
+  <%= f.label :total_row, "Total Row *", :class => "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+    <%= f.text_field :total_row, :class => "form-control" %>
+  </div>
+</div>
+
+<div class="form-group">
+  <%= f.label :seats_per_row, "Seats Per Row *", :class => "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+    <%= f.text_field :seats_per_row, :class => "form-control" %>
+  </div>
+</div>
+
+<div class="form-group">
+  <div class="col-sm-offset-2 col-sm-10">
+    <div class="checkbox">
+      <label>
+        <%= f.check_box :status %>Active
+      </label>
+    </div>
+  </div>
+</div>
