@@ -2,6 +2,10 @@ Rails.application.routes.draw do
 
   get "area_names/get_all_area_names_json" => "area_names#get_all_area_names_json"
   post "area_names/update_from_api" => "area_names#update_from_api"
+  get "occupied_seats/get_all_occupied_seats_json" => "occupied_seats#get_all_occupied_seats_json"
+  get "occupied_seats/update_occupied_seats_api" => "occupied_seats#update_occupied_seats_api"
+  get "occupied_seats/clear_all_seat_api" => "occupied_seats#clear_all_seat_api"
+  
   resources :area_names
   resources :occupied_seats
   devise_for :users, :controllers => { registrations: 'registrations' }
