@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>User Aea</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>Seat Management</title>
   <%= stylesheet_link_tag    'application', "responsive.css" %>
   <%= javascript_include_tag 'user' %>
   <!--[if lt IE 9]>
@@ -13,7 +18,7 @@
 </head>
 <body id="home" class="homepage">
   <header id="header">
-    <nav id="main-menu" class="navbar navbar-default navbar-fixed-top" role="banner">
+    <nav id="main-menu" class="navbar navbar-default navbar-fixed-top hidden-xs" role="banner">
       <div class="col-sm-12 info" style="background-color:#1fb7a6">
         <div class="col-md-6 hidden-xs">&nbsp;</div>
         <div class="col-md-6 hidden-xs" id="login-pan">
@@ -46,6 +51,21 @@
           <%= raw(value) %>
         </div>
       <% end %>
+      <% unless current_user.nil? %>
+        <div class="col-xs-12 margin_t_20 margin_b_30">
+          <% if current_user.is_admin? %>
+            <%= link_to "Clear All Seats", delete_all_sests_path, :class => "btn btn-danger", :method => :delete,
+                        :data => { :confirm => "Are you sure?" }%>
+            <%= link_to "Manage Area", area_names_path, :class => "btn btn-success" %>
+          <% end %>
+          <% if current_user.default_area_name.nil? %>
+            <%= link_to "Manage Seat", seat_managements_path, :class => "btn btn-success" %>
+          <% else %>
+            <%= link_to "Manage Seat", seat_management_path(current_user.default_area_name.permalink),
+                        :class => "btn btn-success" %>
+          <% end %>
+        </div>
+      <% end %>
       <%= yield %>
     </div>
   </section>
@@ -54,7 +74,8 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-6">
-          &copy; 2016 Asia Evangelical Alliance.
+          &copy; <%=  %> Seat Managements
+          <%#*&copy; 2016 Asia Evangelical Alliance.%>
         </div>
         <div class="col-sm-6">
           <ul class="social-icons">

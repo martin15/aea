@@ -11,14 +11,14 @@ module ApplicationHelper
     if current_user.nil?
       str = str + "#{link_to raw("<i class='icon fa fa-user user' style='min-height:44px'></i> Login"),
                      new_user_session_path}"
-      str = str + "#{link_to raw("<i class='icon fa fa-pencil-square-o'></i> Sign up"),
-                                        new_user_registration_path}"
+      #str = str + "#{link_to raw("<i class='icon fa fa-pencil-square-o'></i> Sign up"),
+      #                                  new_user_registration_path}"
     else
       str = str + "#{link_to raw("<i class='icon fa fa-sign-out'></i> Sign Out"),
                              destroy_user_session_path, :method => :Delete}"
       str = str + "#{link_to raw("<i class='icon fa fa-user user'  style='min-height:44px'></i>
                                   #{current_user.first_name.titleize}
-                                  #{current_user.last_name[0].titleize}"), users_path}"
+                                  #{current_user.last_name[0].titleize}"), seat_managements_path}"
     end
   end
 

@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   layout 'users'
 
   def after_sign_in_path_for(resource)
-    users_path
+    seat_managements_path
   end
 
   def paging(per_page)
@@ -16,5 +16,19 @@ class ApplicationController < ActionController::Base
   def the_domain
     host = request.host == "localhost" ? "#{request.host}:#{request.port}" : request.host
     return host
+  end
+
+  def require_admin_login
+     if current_user.nil?
+       flash[:alert] = "Only Admin are permitted to access this page"
+       redirect_to new_user_session_path
+       return
+     elsif current_user.is_admin?
+       return current_user
+     else
+       flash[:alert] = "Only Admin are permitted to access this page"
+       redirect_to users_path
+       return
+    end
   end
 end

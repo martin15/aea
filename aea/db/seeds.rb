@@ -42,7 +42,32 @@ room_type = UserType.find_or_create_by(:name => "Single Room")
 room_type_2 = UserType.find_or_create_by(:name => "Twin Sharing Room")
 
 
-area_name_1 = AreaName.find_or_create_by(:name => "Front")
-area_name_2 = AreaName.find_or_create_by(:name => "Back")
-area_name_3 = AreaName.find_or_create_by(:name => "Balcony")
-area_name_4 = AreaName.find_or_create_by(:name => "Outside")
+area_name_1_a = AreaName.find_or_create_by(:name => "Front A")
+area_name_1_b = AreaName.find_or_create_by(:name => "Front B")
+area_name_1_c = AreaName.find_or_create_by(:name => "Front C")
+area_name_1_d = AreaName.find_or_create_by(:name => "Front D")
+area_name_2_a = AreaName.find_or_create_by(:name => "Back A")
+area_name_2_b = AreaName.find_or_create_by(:name => "Back B")
+area_name_2_c = AreaName.find_or_create_by(:name => "Back C")
+area_name_3_a = AreaName.find_or_create_by(:name => "Balcony A")
+area_name_3_b = AreaName.find_or_create_by(:name => "Balcony B")
+area_name_4_a = AreaName.find_or_create_by(:name => "Outside")
+
+
+["front", "back", "balcony", "other"].each do |name|
+  (1..9).each do |x|
+    email = "#{name}_#{x}@gmail.com"
+    user  = User.find_by_email(email)
+    if user.nil?
+      user_type_5 = User.create( :email => email, :password => "#{name}12345",
+                                 :password_confirmation => "#{name}12345",
+                                 :first_name => name, :last_name => name,
+                                 :passport_number => "12345678", :age => "99",
+                                 :confirmed_at => Time.now, :country_id => country_10.id,
+                                 :user_type_id => user_type_5.id, :gender => 'male',
+                                 :title => "Mr")
+    end
+  end
+
+end
+

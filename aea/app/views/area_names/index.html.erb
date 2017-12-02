@@ -10,10 +10,10 @@
         <tr>
           <th>#</th>
           <th>Name</th>
-          <th>Main Column</th>
+          <%#*<th>Main Column</th>%>
           <th>Total Row</th>
           <th>Seats/row</th>
-          <th>Status</th>
+          <%#*<th>Status</th>%>
           <th>&nbsp;</th>
         </tr>
       </thead>
@@ -22,10 +22,14 @@
           <tr>
             <th scope="row"><%= @no+x+1 %></th>
             <td><%= area_name.name %></td>
-            <td><%= area_name.main_column %></td>
+            <%#*<td>%>
+              <%#= area_name.main_column %>
+            <%#*</td>%>
             <td><%= area_name.total_row %></td>
             <td><%= area_name.seats_per_row %></td>
-            <td><%= area_name.status ? "Active" : "Inactive" %></td>
+            <%#*<td>%>
+              <%#= area_name.status ? "Active" : "Inactive" %>
+            <%#*</td>%>
             <td>
               <%= link_to "Edit", edit_area_name_path(area_name), :class => "btn btn-success" %>
               <%= link_to "Delete", area_name_path(area_name.id ), :method => :delete,

@@ -1,0 +1,5 @@
+<% if @seat.nil? %>
+  alert("update failed");
+<% end %>
+$("#img"+<%= params[:seat_row] %>+"-"+<%= params[:seat_number] %>).hide();
+$("span#"+<%= params[:seat_row] %>+"-"+<%= params[:seat_number] %>).show();

@@ -11,6 +11,9 @@ class User < ActiveRecord::Base
   has_many :members, :class_name => "User", :foreign_key => :leader_id
   has_many :payment_confirmations
 
+  has_many :area_names, :through => :area_names_users
+  has_many :area_names_users
+
   belongs_to :team_leader, :class_name => "User", :foreign_key => :leader_id
 
   belongs_to :country
@@ -82,6 +85,10 @@ class User < ActiveRecord::Base
 
   def self.confirmed_user
     self.where("status = 'Approved'")
+  end
+
+  def default_area_name
+    self.area_names.first
   end
 
   protected

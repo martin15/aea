@@ -1,0 +1,9 @@
+<% @result.each do |data|  %>
+  folder name <%= data["folder_name"] %><br/>
+  folder id <%= data["folder_id"] %><br/>
+  <%= data["documents"].each do |doc| %>
+    name <%= doc['doc_name']  %>--
+    id <%= doc['doc_id']  %>--
+    gambar <%= doc['doc_encoded']  %>
+  <% end %><br/>
+<% end %>

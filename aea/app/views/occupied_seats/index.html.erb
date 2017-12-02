@@ -1,0 +1,116 @@
+<div class="col-md-12 content">
+  <h2>Seats</h2>
+  <div class="col-md-12">
+    <p><%#= raw msg_flash(flash) %></p>
+    <p>
+      <%= link_to "Add new area_name", new_area_name_path %>
+    </p>
+    <div class="col-xs-12 product-detail-specification">
+      <div class="panel with-nav-tabs panel-default">
+        <div class="panel-heading">
+          <ul class="nav nav-tabs">
+            <% @area_names.each_with_index do |area_name, x| %>
+              <% active = "class='active'" if x == 0 %>
+              <li <%= active %>>
+                <a href="#<%= area_name.name %>" data-toggle="tab"><%= area_name.name %></a>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+        <div class="panel-body">
+          <div class="tab-content">
+            <div class="tab-pane fade in active" id="specification">
+              <% @product_specifications.each do |type, files| %>
+              <div class="col-xs-12 no-padding-lr" id="<%= 'spec-image' if type.downcase == 'image' %>">
+                  <% files.each do |file| %>
+                    <% if type.downcase == 'image' %>
+                      <div class="col-xs-6 col-sm-3">
+                        <div class="product-specification-box">
+                          <%= link_to (image_tag file.filename.url(:medium), :class => "img-loading img-responsive"),
+                                      file.filename.url, :title => file.filename.file.filename %>
+                        </div>
+                      </div>
+                    <% else %>
+                      <div class="col-xs-12">
+                        <div class="col-xs-12 product-file">
+                          <p>
+                            <%= link_to file.filename.file.filename, file.filename.url,
+                                        :target => "_blank" %>
+                          </p>
+                        </div>
+                      </div>
+                    <% end %>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+            <div class="tab-pane fade" id="certification">
+              <% @certificates.each do |certificate| %>
+                <%= link_to raw("
+                  <div class='col-xs-6 col-md-4 col-lg-3 no-padding-lr certificate'>
+                    <div class='certificate-image'>
+                      #{image_tag certificate.image.url(:medium), :class => "img-loading img-responsive"}
+                    </div>
+                    <div class='certificate-name'>
+                      #{certificate.name}
+                    </div>
+                  </div>
+                "), certificate.file.url, :target => "_blank" %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Main Column</th>
+          <th>Total Row</th>
+          <th>Seats/row</th>
+          <th>Status</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @area_names.each_with_index do |area_name, x| %>
+          <tr>
+            <th scope="row"><%= @no+x+1 %></th>
+            <td><%= area_name.name %></td>
+            <td><%= area_name.main_column %></td>
+            <td><%= area_name.total_row %></td>
+            <td><%= area_name.seats_per_row %></td>
+            <td><%= area_name.status ? "Active" : "Inactive" %></td>
+            <td>
+              <%= link_to "Edit", edit_area_name_path(area_name), :class => "btn btn-success" %>
+              <%= link_to "Delete", area_name_path(area_name.id ), :method => :delete,
+                                    data: {:confirm => "Are you sure?"}, :class => "btn btn-warning" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <div class="admin-row">
+      <%= paginate @area_names, :link_separator => " | ",
+                                 :previous_label => "&laquo; previous",
+                                 :next_label => "next &raquo;" %>
+
+    </div>
+  </div>
+</div>

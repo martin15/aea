@@ -1,4 +1,5 @@
 class AreaNamesController < ApplicationController
+  before_filter :require_admin_login
   before_filter :find_area_name, :only => [:edit, :update, :update_from_api, :destroy, :delete]
 
   def index
@@ -36,6 +37,7 @@ class AreaNamesController < ApplicationController
   end
 
   def update_from_api
+    area_name = AreaName.find_by_permalink(params[:area_name])
     if @area_name.update_attributes(:main_column => params["main_column"], 
                                     :total_row => params["total_row"], 
                                     :seats_per_row => params["seats_per_row"],
@@ -78,7 +80,7 @@ class AreaNamesController < ApplicationController
     def find_area_name
       @area_name = AreaName.find_by_id(params[:id])
       if @area_name.nil?
-        flash[:notice] = "Cannot find the RoomType with id '#{params[:id]}'"
+        flash[:notice] = "Cannot find the Area '#{params[:id]}'"
         redirect_to area_names_path
      end
     end

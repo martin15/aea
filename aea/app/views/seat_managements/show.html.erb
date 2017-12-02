@@ -1,0 +1,71 @@
+<%#*<meta http-equiv="refresh" content="5" />%>
+
+<section class="registration">
+  <div class="user container">
+    <div class="row">
+      <%= form_tag  "/occupied_seats/book_seats", :class => "form-horizontal" do %>
+        <div class="col-xs-12 margin_b_30">
+          <% @area_names.each do |area_name| %>
+            <%= link_to area_name.name, seat_management_path(area_name.permalink), 
+                        :class => "btn btn-#{area_name.permalink == params[:id] ? 'info' : 'warning'}" %>
+          <% end %>
+        </div>
+        <div class="col-xs-12">
+          <% (1..@area_name.total_row).each do |row| %>
+            <div class="row">
+              <ol class="seats no-padding-lr" type="A">
+                <% percentage = "flex-basis: #{100.0/@area_name.seats_per_row}%" %>
+                <% (1..@area_name.seats_per_row).each do |seat| %>
+                  <% coor = "#{row}#{seat.to_s26}" %>
+                  <li class="seat" style="<%= percentage %>">
+                    <%= check_box_tag "position[]", "#{row}##{seat.to_s26}", @seats.include?(coor), :id => coor,
+                                      :class => "update_seat",
+                                      :data => {:seat_row => row, :seat_no => seat,
+                                                :area_name => params[:id]} %>
+                    <label for="<%= coor %>">
+                      <span id="<%= "#{row}-#{seat}" %>"><%= coor %></span>
+                      <%= image_tag "spinner.gif", :class => "img img-responsive", :id => "img#{row}-#{seat}",
+                                    :style => "height:15px;margin: 0 auto;display: none" %>
+                    </label>
+                  </li>
+                  <%#*<label class="image-checkbox">%>
+                    <%#*<div class="seat-box-clear"></div>%>
+                    <%#*<input type="checkbox" name="image[]" value="" />%>
+                  <%#*</label>%>
+                <% end %>
+              </ol>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    <%#*setInterval(refreshPartial, 3000)%>
+    var row, seat_number, area_name_permalink, type
+    $(".update_seat").click(function() {
+      row                 = $(this).attr('data-seat-row')
+      seat_number         = $(this).attr('data-seat-no')
+      area_name_permalink = $(this).attr('data-area-name')
+      $("span#"+row+"-"+seat_number).hide();
+      $("#img"+row+"-"+seat_number).show();
+      if($(this).is(':checked')){
+        type = "create"
+      }else{
+        type = "delete"
+      }
+      $.ajax({
+        url: '/occupied_seats/update_seat',
+        type: 'POST',
+        data: { seat_row: row, seat_number: seat_number, id: area_name_permalink, type: type },
+        async: false,
+        success: function(html) {
+
+        }
+      });
+    })
+  })
+</script>
