@@ -38,6 +38,27 @@ if user.nil?
                              :title => "Mr")
 end
 
+user  = User.find_by_email("martin.me15@yahoo.com")
+if user.nil?
+  user_type_5 = User.create( :email => 'martin.me15@yahoo.com', :password => "1q2w3e4r5t",
+                             :password_confirmation => "30012016BDG",
+                             :first_name => "admin", :last_name => "admin",
+                             :passport_number => "12345678", :age => "99",
+                             :confirmed_at => Time.now, :country_id => country_10.id,
+                             :user_type_id => user_type_5.id, :gender => 'male',
+                             :title => "Mr")
+end
+user  = User.find_by_email("erdy@gmail.com")
+if user.nil?
+  user_type_5 = User.create( :email => 'erdy@gmail.com', :password => "12345678",
+                             :password_confirmation => "30012016BDG",
+                             :first_name => "admin", :last_name => "admin",
+                             :passport_number => "12345678", :age => "99",
+                             :confirmed_at => Time.now, :country_id => country_10.id,
+                             :user_type_id => user_type_5.id, :gender => 'male',
+                             :title => "Mr")
+end
+
 room_type = UserType.find_or_create_by(:name => "Single Room")
 room_type_2 = UserType.find_or_create_by(:name => "Twin Sharing Room")
 

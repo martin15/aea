@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  namespace :api, :defaults => {:format => 'json'} do
+    devise_for :users
+    post "seat_managements/get_occupied_seats_json" => "seat_managements#get_occupied_seats_json"
+    post "seat_managements/update_occupied_seat_json" => "seat_managements#update_occupied_seat_json"
+  end
+
   get "area_names/get_all_area_names_json" => "area_names#get_all_area_names_json"
   post "area_names/update_from_api" => "area_names#update_from_api"
   get "occupied_seats/get_all_occupied_seats_json" => "occupied_seats#get_all_occupied_seats_json"
@@ -12,8 +18,9 @@ Rails.application.routes.draw do
   
   resources :area_names
   resources :occupied_seats
+  post "seat_managements/get_occupied_seats_json" => "seat_managements#get_occupied_seats_json"
   resources :seat_managements
-  delete "seat_managements#delete_all" => "seat_managements#delete_all", :as => "delete_all_sests"
+  delete "seat_managements/delete_all" => "seat_managements#delete_all", :as => "delete_all_sests"
   devise_for :users, :controllers => { registrations: 'registrations' }
   resource :user, only: [:edit] do
     collection do

@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  acts_as_token_authenticatable
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
@@ -37,7 +38,7 @@ class User < ActiveRecord::Base
   end
 
   def is_admin?
-    self.email == "aeaga2016@gmail.com" || self.email == "martin.me15@yahoo.com"
+    self.email == "aeaga2016@gmail.com" || self.email == "martin.me15@yahoo.com" || self.email == "erdy@gmail.com"
   end
 
   def self.not_admin
